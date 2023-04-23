@@ -1,0 +1,79 @@
+{
+    "data": {
+      "roomTypes": {
+        "1": "konferencyjna",
+        "2": "laboratoryjna",
+        "3": "wykładowa",
+        "4": "open-space"
+      },
+      "buildingId": {
+        "buildingId": "1",
+        "address": "adres budynku",
+        "rooms": {
+          "roomId1": {
+            "roomId": 1,
+            "features": {
+              "projector": 1,
+              "roomType": 1
+            },
+            "reservations": [
+              {
+                "timeBlockId": 1,
+                "roomId": 1,
+                "dateUTC": "22-11-22",
+                "year": 2022,
+                "month": 2,
+                "day": 23,
+                "hour": 10,
+                "minute": 15,
+                "isTaken": 0
+              },
+              {
+                "timeBlockId": 2,
+                "roomId": 1,
+                "dateUTC": "22-11-22",
+                "year": 2022,
+                "month": 2,
+                "day": 23,
+                "hour": 10,
+                "minute": 15,
+                "isTaken": 0
+              }
+            ]
+          },
+          "roomId2": {
+            "roomId": 2,
+            "features": {
+              "projector": 1,
+              "roomType": 1
+            },
+            "reservations": [
+              {
+                "timeBlockId": 1,
+                "roomId": 2,
+                "dateUTC": "22-11-22",
+                "year": 2022,
+                "month": 2,
+                "day": 23,
+                "hour": 10,
+                "minute": 15,
+                "isTaken": 0
+              },
+              {
+                "timeBlockId": 2,
+                "roomId": 2,
+                "dateUTC": "22-11-22",
+                "year": 2022,
+                "month": 2,
+                "day": 23,
+                "hour": 10,
+                "minute": 15,
+                "isTaken": 0
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+  
