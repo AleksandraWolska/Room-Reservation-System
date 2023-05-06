@@ -1,4 +1,4 @@
-package com.reservation.RoomReservation.Utils.Assemblers;
+package com.reservation.RoomReservation.Models.Assemblers;
 
 import com.reservation.RoomReservation.Controllers.BuildingController;
 import com.reservation.RoomReservation.Models.Building;

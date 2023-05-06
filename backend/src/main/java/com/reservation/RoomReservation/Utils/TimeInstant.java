@@ -1,8 +1,13 @@
 package com.reservation.RoomReservation.Utils;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
-public class TimeInstant {
+@Getter
+@Setter
+public class TimeInstant implements Comparable<TimeInstant>{
 
     private LocalDateTime time;
     private int year;
@@ -22,5 +27,12 @@ public class TimeInstant {
 
     }
 
+    @Override
+    public int compareTo(TimeInstant timeInstant) {
+        return time.compareTo(timeInstant.time);
+    }
 
+    public int compareTo(LocalDateTime localDateTime) {
+        return time.compareTo(localDateTime);
+    }
 }

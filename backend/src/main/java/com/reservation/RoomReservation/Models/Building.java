@@ -1,10 +1,14 @@
 package com.reservation.RoomReservation.Models;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 
 @Entity
+@Data
 public class Building {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -18,23 +22,4 @@ public class Building {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ArrayList<Room> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(ArrayList<Room> rooms) {
-        this.rooms = rooms;
-    }
 }

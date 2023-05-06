@@ -1,9 +1,13 @@
 package com.reservation.RoomReservation.Models;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.lang.NonNull;
 
 @Entity
+@Data
 public class Room {
 
     @Id
@@ -16,43 +20,4 @@ public class Room {
     private  Building building;
     private Integer places;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    public Integer getFloor() {
-        return floor;
-    }
-
-    public void setFloor(Integer floor) {
-        this.floor = floor;
-    }
-
-    public Building getBuilding() {
-        return building;
-    }
-
-    public void setBuilding(Building building) {
-        this.building = building;
-    }
-
-    public Integer getPlaces() {
-        return places;
-    }
-
-    public void setPlaces(Integer places) {
-        this.places = places;
-    }
 }
