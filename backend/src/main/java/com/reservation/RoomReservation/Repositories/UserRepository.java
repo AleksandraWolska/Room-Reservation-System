@@ -1,7 +1,6 @@
 package com.reservation.RoomReservation.Repositories;
 
 import com.reservation.RoomReservation.Models.User;
-import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

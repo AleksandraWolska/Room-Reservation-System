@@ -29,12 +29,24 @@ public class SecurityConfiguration {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
+    http.cors()
+        .and()
         .csrf()
         .disable()
         .authorizeHttpRequests()
+            .requestMatchers(POST, "/reservation/auth/register").permitAll()
+//        .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name())
+//        .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name())
+//        .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name())
+//        .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name())
+//        .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name())
+//        .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())
+//        .requestMatchers(GET, "/api/v1/admin/**").hasAuthority(ADMIN_READ.name())
+//        .requestMatchers(POST, "/api/v1/admin/**").hasAuthority(ADMIN_CREATE.name())
+//        .requestMatchers(PUT, "/api/v1/admin/**").hasAuthority(ADMIN_UPDATE.name())
+//        .requestMatchers(DELETE, "/api/v1/admin/**").hasAuthority(ADMIN_DELETE.name())
         .requestMatchers(
-                "/api/v1/auth/**",
+                "/reservation/auth/**",
                 "/v2/api-docs",
                 "/v3/api-docs",
                 "/v3/api-docs/**",
@@ -45,29 +57,8 @@ public class SecurityConfiguration {
                 "/swagger-ui/**",
                 "/webjars/**",
                 "/swagger-ui.html"
-        )
-          .permitAll()
-
-
-        .requestMatchers("/api/v1/management/**").hasAnyRole(ADMIN.name())
-
-
-        .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(ADMIN_READ.name())
-        .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(ADMIN_CREATE.name())
-        .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(ADMIN_UPDATE.name())
-        .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(ADMIN_DELETE.name())
-
-
-       /* .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())
-
-        .requestMatchers(GET, "/api/v1/admin/**").hasAuthority(ADMIN_READ.name())
-        .requestMatchers(POST, "/api/v1/admin/**").hasAuthority(ADMIN_CREATE.name())
-        .requestMatchers(PUT, "/api/v1/admin/**").hasAuthority(ADMIN_UPDATE.name())
-        .requestMatchers(DELETE, "/api/v1/admin/**").hasAuthority(ADMIN_DELETE.name())*/
-
-
-        .anyRequest()
-          .authenticated()
+        ).permitAll()
+        .anyRequest().authenticated()
         .and()
           .sessionManagement()
           .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -77,8 +68,7 @@ public class SecurityConfiguration {
         .logout()
         .logoutUrl("/api/v1/auth/logout")
         .addLogoutHandler(logoutHandler)
-        .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
-    ;
+        .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
 
     return http.build();
   }

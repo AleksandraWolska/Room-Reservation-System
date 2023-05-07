@@ -5,19 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="890a5610-6f13-4a6c-8f72-a7bb4a873656" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8ed9545-56e8-404b-8c8c-8a6c1009a241.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f8ed9545-56e8-404b-8c8c-8a6c1009a241.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/SecurityConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/BuildingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/BuildingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Building.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Reservation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Assemblers/BuildingModelAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Assemblers/BuildingModelAssembler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Repositories/ReservationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Repositories/ReservationRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Repositories/RoomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Repositories/RoomRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Repositories/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/Assemblers/BuildingModelAssembler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Assemblers/BuildingModelAssembler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/TimeInstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/TimeInstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/RoomReservationApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/RoomReservationApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Configurations/JwtAuthenticationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Configurations/JwtAuthenticationFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Controllers/BuildingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Controllers/BuildingController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Models/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Models/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/RoomReservationApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/RoomReservationApplication.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,27 +60,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Studia/Sem6/ZaawansowaneTechnoloieWebowe/RoomReservation/backend/src/main/java/com/reservation/RoomReservation/Authentication",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "spring.configuration.checksum": "a1a93693439fe755f9b4b4007d3c6d2c",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Studia/Sem6/ZaawansowaneTechnoloieWebowe/RoomReservation/backend/src/main/java/com/reservation/RoomReservation/Authentication&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;a1a93693439fe755f9b4b4007d3c6d2c&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Studia\Sem6\ZaawansowaneTechnoloieWebowe\RoomReservation\backend\src\main\java\com\reservation\RoomReservation\Authentication" />
@@ -114,7 +117,8 @@
       <workItem from="1682854107823" duration="11040000" />
       <workItem from="1683128071396" duration="15218000" />
       <workItem from="1683269877257" duration="10193000" />
-      <workItem from="1683314063934" duration="6171000" />
+      <workItem from="1683314063934" duration="11701000" />
+      <workItem from="1683451980584" duration="8981000" />
     </task>
     <servers />
   </component>

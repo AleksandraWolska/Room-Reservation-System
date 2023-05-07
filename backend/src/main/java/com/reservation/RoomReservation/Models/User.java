@@ -29,6 +29,7 @@ public class User implements UserDetails {
     private String lastname;
     @Getter
     @Setter
+    @Column(unique=true)
     private String email;
     @Setter
     private String password;

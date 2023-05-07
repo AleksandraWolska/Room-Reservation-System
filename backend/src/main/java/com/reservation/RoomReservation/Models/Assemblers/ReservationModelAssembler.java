@@ -1,8 +1,10 @@
 package com.reservation.RoomReservation.Models.Assemblers;
 
 import com.reservation.RoomReservation.Controllers.BuildingController;
+import com.reservation.RoomReservation.Controllers.ReservationController;
 import com.reservation.RoomReservation.Controllers.RoomController;
 import com.reservation.RoomReservation.Models.Building;
+import com.reservation.RoomReservation.Models.Reservation;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.stereotype.Component;
@@ -11,13 +13,13 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
-public class BuildingModelAssembler implements RepresentationModelAssembler<Building, EntityModel<Building>> {
+public class ReservationModelAssembler  implements RepresentationModelAssembler<Reservation, EntityModel<Reservation>> {
+
     @Override
-    public EntityModel<Building> toModel(Building building) {
+    public EntityModel<Reservation> toModel(Reservation reservation) {
         return EntityModel.of(
-                building,
-                linkTo(methodOn(BuildingController.class).one(building.getName())).withSelfRel(),
-                linkTo(methodOn(BuildingController.class).all()).withRel("buildings"),
-                linkTo(methodOn(RoomController.class).allInBuilding(building.getName())).withRel("rooms"));
+                reservation,
+                linkTo(methodOn(ReservationController.class).oneId(reservation.getId())).withSelfRel(),
+                linkTo(methodOn(ReservationController.class).all()).withRel("buildings"));
     }
 }
