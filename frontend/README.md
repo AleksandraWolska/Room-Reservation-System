@@ -1,5 +1,14 @@
 Frontend folder for booking conference room system
 
+
+openapi-generator generate -i openapi.json -g typescript-fetch -o src/api
+
+npm install cross-fetch
+
+
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
