@@ -1,6 +1,5 @@
 package com.reservation.RoomReservation.Repositories;
 
-import com.reservation.RoomReservation.Models.Assemblers.RoomModelAssembler;
 import com.reservation.RoomReservation.Models.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

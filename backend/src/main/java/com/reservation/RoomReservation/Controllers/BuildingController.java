@@ -2,11 +2,11 @@ package com.reservation.RoomReservation.Controllers;
 
 import com.reservation.RoomReservation.Models.Building;
 import com.reservation.RoomReservation.Repositories.BuildingRepository;
-import com.reservation.RoomReservation.Models.Assemblers.BuildingModelAssembler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,36 +22,31 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class BuildingController {
 
     private final BuildingRepository repository;
-    private final BuildingModelAssembler assembler;
 
     @GetMapping("/")
-    public CollectionModel<EntityModel<Building>> all(){
-        List<EntityModel<Building>> buildings = repository
-                .findAll()
-                .stream()
-                .map(assembler::toModel)
-                .collect(Collectors.toList());
-        return CollectionModel.of(buildings, linkTo(methodOn(BuildingController.class).all()).withSelfRel());
+    public ResponseEntity<List<Building>> all(){
+        List<Building> buildings = repository.findAll();
+        return new ResponseEntity<>(buildings, HttpStatus.OK);
     }
 
     @GetMapping("/{name}")
-    public EntityModel<Building> one(@PathVariable String name){
+    public ResponseEntity<Building> one(@PathVariable String name){
         Building building = repository
                 .findByName(name)
                 .orElseThrow(() -> new NoSuchElementException(name));
-        return assembler.toModel(building);
+        return new ResponseEntity<>(building, HttpStatus.OK);
     }
 
     @PostMapping("/")
-    public EntityModel<Building> create(@RequestBody Building building){
-        return assembler.toModel(repository.save(building));
+    public ResponseEntity<Building> create(@RequestBody Building building){
+        return new ResponseEntity<>(building, HttpStatus.OK);
     }
 
     @DeleteMapping("/{name}")
-    public EntityModel<Building> delete(@PathVariable String name){
+    public ResponseEntity<Building> delete(@PathVariable String name){
         Building building = repository.findByName(name).orElseThrow(() -> new NoSuchElementException(name));
         repository.delete(building);
-        return assembler.toModel(building);
+        return new ResponseEntity<>(building, HttpStatus.OK);
     }
 
 }
