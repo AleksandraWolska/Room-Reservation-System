@@ -19,5 +19,7 @@ public class Room {
     @JoinColumn(name = "building_id",nullable = false)
     private  Building building;
     private Integer places;
+    private RoomType roomType;
+    private boolean projector;
 
 }

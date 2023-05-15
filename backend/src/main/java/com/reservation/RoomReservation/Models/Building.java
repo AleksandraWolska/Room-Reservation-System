@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -15,11 +16,5 @@ public class Building {
     private Integer id;
     @Column(unique = true)
     private String name;
-    @OneToMany(cascade=CascadeType.ALL, mappedBy = "building")
-    private ArrayList<Room> rooms;
-
-    public Integer getId() {
-        return id;
-    }
 
 }

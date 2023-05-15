@@ -4,11 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Getter
 @Setter
 public class TimeInstant implements Comparable<TimeInstant>{
 
+    public static final int DURATION = 15;
     private LocalDateTime time;
     private int year;
     private int month;
@@ -26,6 +28,18 @@ public class TimeInstant implements Comparable<TimeInstant>{
         minute = time.getMinute();
 
     }
+
+    public TimeInstant(int year, int month, int day, int hour, int minute){
+
+        this.year = year;
+        this.month = month;
+        this.day = day;
+        this.hour = hour;
+        this.minute = minute;
+        this.time = LocalDateTime.of(year, month, day, hour, minute);
+
+    }
+
 
     @Override
     public int compareTo(TimeInstant timeInstant) {
