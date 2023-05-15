@@ -6,7 +6,6 @@ import com.reservation.RoomReservation.Models.User;
 import com.reservation.RoomReservation.Repositories.ReservationRepository;
 import com.reservation.RoomReservation.Repositories.RoomRepository;
 import com.reservation.RoomReservation.Repositories.UserRepository;
-import com.reservation.RoomReservation.Utils.TimeInstant;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -66,19 +64,19 @@ public class ReservationController {
     }
 
     @PostMapping("/{roomId}{userId}")
-    public ResponseEntity<Reservation> reserve(@PathVariable Integer roomId, @PathVariable Integer userId, @RequestBody List<TimeInstant> timeInstants){
+    public ResponseEntity<Reservation> reserve(@PathVariable Integer roomId, @PathVariable Integer userId, @RequestBody List<LocalDateTime> timeInstants){
         Room room = roomRepository.findById(roomId).orElseThrow(() -> new NoSuchElementException("dupa"));
         User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("dupa"));
-        timeInstants.sort(new Comparator<TimeInstant>() {
+        timeInstants.sort(new Comparator<LocalDateTime>() {
             @Override
-            public int compare(TimeInstant timeInstant, TimeInstant t1) {
-                return timeInstant.getTime().compareTo(t1.getTime());
+            public int compare(LocalDateTime timeInstant, LocalDateTime t1) {
+                return timeInstant.compareTo(t1);
             }
         });
 
-        LocalDateTime start = timeInstants.get(0).getTime();
+        LocalDateTime start = timeInstants.get(0);
 
-        LocalDateTime end = timeInstants.get(timeInstants.size() - 1).getTime();
+        LocalDateTime end = timeInstants.get(timeInstants.size() - 1);
 
         List<Reservation> reservationsInTime = reservationRepository.findByRoomInTime(roomId, start, end);
 
