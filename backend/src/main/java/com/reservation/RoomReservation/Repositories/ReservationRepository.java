@@ -12,7 +12,14 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
     @Query("SELECT r FROM Reservation r WHERE r.user.email = ?1 ORDER BY r.reservedTo")
     List<Reservation> findByUser(String email);
-
+    @Query("SELECT r FROM Reservation r WHERE r.room.id = ?1 ORDER BY r.reservedTo")
+    List<Reservation> findByRoom(Integer roomId);
+    @Query("SELECT r FROM Reservation r WHERE r.reservedFrom > ?1 OR r.reservedTo < ?1")
+    List<Reservation> findByTime(LocalDateTime time);
+    @Query("SELECT r FROM Reservation r WHERE r.reservedFrom < ?2 AND r.reservedTo > ?1")
+    List<Reservation> findInTime(LocalDateTime start, LocalDateTime end);
+    @Query("SELECT r FROM Reservation r WHERE r.room.id = ?1 AND r.reservedFrom < ?3 AND r.reservedTo > ?2")
+    List<Reservation> findByRoomInTime(Integer roomId, LocalDateTime start, LocalDateTime end);
     @Query("SELECT r FROM Reservation r WHERE r.user.email = ?1 AND r.createdAt = ?2")
     Optional<Reservation> findByUserAndCreation(String email, LocalDateTime createdAt);
 }
