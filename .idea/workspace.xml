@@ -5,34 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="890a5610-6f13-4a6c-8f72-a7bb4a873656" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/RoomTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/RoomType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/AvailabilityAt.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/RoomFilterRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Controllers/ReservationController$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Models/RoomTO.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Models/RoomType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Utils/AvailabilityAt.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Utils/RoomFilterRequest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f8ed9545-56e8-404b-8c8c-8a6c1009a241.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f8ed9545-56e8-404b-8c8c-8a6c1009a241.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/BuildingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/BuildingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/ReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/ReservationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/RoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/RoomController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Building.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Repositories/ReservationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Repositories/ReservationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/TimeInstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/TimeInstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Controllers/BuildingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Controllers/BuildingController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Controllers/ReservationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Controllers/ReservationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Controllers/RoomController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Controllers/RoomController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Models/Building.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Models/Building.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Models/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Models/Room.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Repositories/ReservationRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Repositories/ReservationRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Utils/TimeInstant.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Utils/TimeInstant.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,7 +119,7 @@
       <workItem from="1683736738840" duration="17000" />
       <workItem from="1683833141624" duration="3512000" />
       <workItem from="1683875999627" duration="12000" />
-      <workItem from="1684142311654" duration="17564000" />
+      <workItem from="1684142311654" duration="19413000" />
     </task>
     <servers />
   </component>
@@ -185,29 +159,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/RoomController.java</url>
-          <line>125</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/RoomController.java</url>
-          <line>127</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/RoomController.java</url>
-          <line>135</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
