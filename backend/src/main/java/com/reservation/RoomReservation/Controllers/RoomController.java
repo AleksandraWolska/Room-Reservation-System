@@ -9,12 +9,10 @@ import com.reservation.RoomReservation.Utils.AvailabilityAt;
 import com.reservation.RoomReservation.Utils.RoomFilterRequest;
 import com.reservation.RoomReservation.Utils.TimeRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -112,14 +110,6 @@ public class RoomController {
 
         return new ResponseEntity<>(rooms, HttpStatus.OK);
     }
-
-//    @PostMapping("/")
-//    public ResponseEntity<Room> create(@RequestBody Room room){
-//        if(roomRepository.existsById(room.getId())){
-//            throw new DuplicateKeyException(room.toString());
-//        }
-//        return new ResponseEntity<>(room, HttpStatus.OK);
-//    }
 
     @PostMapping("/")
     public ResponseEntity<Room> create(@RequestBody RoomTO roomTO){
