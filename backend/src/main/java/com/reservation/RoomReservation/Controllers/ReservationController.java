@@ -39,7 +39,7 @@ public class ReservationController {
         return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{email}")
+    @GetMapping("/user/email/{email}")
     public ResponseEntity<List<Reservation>> allByUserEmail(@PathVariable String email){
         List<Reservation> reservations = reservationRepository.findByUserEmail(email);
         return new ResponseEntity<>(reservations, HttpStatus.OK);
