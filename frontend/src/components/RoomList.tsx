@@ -13,6 +13,7 @@ const RoomsList = () => {
       const api = new RoomControllerApi();
       const roomsData = await api.all();
       setRooms(roomsData);
+      console.log(roomsData)
     }
 
     fetchRooms();
@@ -20,7 +21,9 @@ const RoomsList = () => {
 
   // Step 5: In render method, map over the rooms and display the data
   return (
+   
     <List>
+        <div>LISTA POKOI</div>
       {rooms.map((room) => (
         <ListItem key={room.id}>
           <ListItemText primary={`Room Number: ${room.number}, Floor: ${room.floor}`} />
