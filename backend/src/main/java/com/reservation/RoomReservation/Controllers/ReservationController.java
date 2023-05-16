@@ -33,10 +33,24 @@ public class ReservationController {
         return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<List<Reservation>> allUser(@PathVariable String email){
-        List<Reservation> reservations = reservationRepository.findByUser(email);
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Reservation>> allByUserId(@PathVariable Integer userId){
+        List<Reservation> reservations = reservationRepository.findByUserId(userId);
         return new ResponseEntity<>(reservations, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{email}")
+    public ResponseEntity<List<Reservation>> allByUserEmail(@PathVariable String email){
+        List<Reservation> reservations = reservationRepository.findByUserEmail(email);
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Reservation> one(@PathVariable Integer id){
+        Reservation reservation = reservationRepository
+                .findById(id)
+                .orElseThrow(() -> new NoSuchElementException(" "));
+        return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
     @GetMapping("/{email}{createdAt}")
@@ -44,14 +58,6 @@ public class ReservationController {
         Reservation reservation = reservationRepository
                 .findByUserAndCreation(email, createdAt)
                 .orElseThrow(() -> new NoSuchElementException(email + " at: " + createdAt.toString()));
-        return new ResponseEntity<>(reservation, HttpStatus.OK);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Reservation> oneId(@PathVariable Integer id){
-        Reservation reservation = reservationRepository
-                .findById(id)
-                .orElseThrow(() -> new NoSuchElementException(id.toString()));
         return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 

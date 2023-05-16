@@ -1,14 +1,15 @@
 package com.reservation.RoomReservation.Models;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class Building {
     @Id
@@ -16,5 +17,7 @@ public class Building {
     private Integer id;
     @Column(unique = true)
     private String name;
+    private Integer latitude;
+    private Integer longitude;
 
 }

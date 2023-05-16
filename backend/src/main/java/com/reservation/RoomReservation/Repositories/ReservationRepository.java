@@ -10,8 +10,10 @@ import java.util.Optional;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
 
+    @Query("SELECT r FROM Reservation r WHERE r.user.id = ?1 ORDER BY r.reservedTo")
+    List<Reservation> findByUserId(Integer userId);
     @Query("SELECT r FROM Reservation r WHERE r.user.email = ?1 ORDER BY r.reservedTo")
-    List<Reservation> findByUser(String email);
+    List<Reservation> findByUserEmail(String email);
     @Query("SELECT r FROM Reservation r WHERE r.room.id = ?1 ORDER BY r.reservedTo")
     List<Reservation> findByRoom(Integer roomId);
     @Query("SELECT r FROM Reservation r WHERE r.reservedFrom > ?1 OR r.reservedTo < ?1")
