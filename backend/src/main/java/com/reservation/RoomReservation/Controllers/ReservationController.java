@@ -20,6 +20,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/reservation/reservations")
 public class ReservationController {
     private final ReservationRepository reservationRepository;
