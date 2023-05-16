@@ -3,6 +3,7 @@ package com.reservation.RoomReservation.Models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Building {
     private Integer id;
     @Column(unique = true)
     private String name;
-    private Integer latitude;
-    private Integer longitude;
+    private Double latitude;
+    private Double longitude;
 
 }
