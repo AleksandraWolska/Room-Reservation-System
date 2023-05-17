@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export * from './AvailabilityAt';
+export * from './AvailabilityAtResponse';
 export * from './Building';
 export * from './BuildingWithRoomsResponse';
 export * from './Reservation';

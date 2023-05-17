@@ -12,6 +12,39 @@
     }
   ],
   "paths": {
+    "/reservation/rooms/filter": {
+      "post": {
+        "tags": [
+          "room-controller"
+        ],
+        "operationId": "filter",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoomFilterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Room"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/reservation/rooms/": {
       "get": {
         "tags": [
@@ -324,40 +357,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/AvailabilityAt"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/reservation/rooms/filter": {
-      "get": {
-        "tags": [
-          "room-controller"
-        ],
-        "operationId": "filter",
-        "parameters": [
-          {
-            "name": "request",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/RoomFilterRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Room"
+                    "$ref": "#/components/schemas/AvailabilityAtResponse"
                   }
                 }
               }
@@ -746,24 +746,19 @@
   },
   "components": {
     "schemas": {
-      "RoomTO": {
+      "RoomFilterRequest": {
         "type": "object",
         "properties": {
-          "number": {
-            "type": "integer",
-            "format": "int32"
+          "from": {
+            "type": "string",
+            "format": "date-time"
           },
-          "floor": {
-            "type": "integer",
-            "format": "int32"
+          "to": {
+            "type": "string",
+            "format": "date-time"
           },
-          "buildingId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "places": {
-            "type": "integer",
-            "format": "int32"
+          "buildingName": {
+            "type": "string"
           },
           "roomType": {
             "type": "string",
@@ -775,8 +770,16 @@
               "OFFICE"
             ]
           },
-          "projector": {
+          "isProjector": {
             "type": "boolean"
+          },
+          "minPlaces": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "maxPlaces": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
@@ -817,6 +820,40 @@
           },
           "building": {
             "$ref": "#/components/schemas/Building"
+          },
+          "places": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "roomType": {
+            "type": "string",
+            "enum": [
+              "LECTURE_ROOM",
+              "WORKSHOP",
+              "COMPUTERS_ROOM",
+              "CHEMISTRY_LABORATORY",
+              "OFFICE"
+            ]
+          },
+          "projector": {
+            "type": "boolean"
+          }
+        }
+      },
+      "RoomTO": {
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "floor": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "buildingId": {
+            "type": "integer",
+            "format": "int32"
           },
           "places": {
             "type": "integer",
@@ -895,7 +932,7 @@
           }
         }
       },
-      "AvailabilityAt": {
+      "AvailabilityAtResponse": {
         "type": "object",
         "properties": {
           "timeId": {
@@ -904,43 +941,6 @@
           },
           "isFree": {
             "type": "boolean"
-          }
-        }
-      },
-      "RoomFilterRequest": {
-        "type": "object",
-        "properties": {
-          "from": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "to": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "buildingName": {
-            "type": "string"
-          },
-          "roomType": {
-            "type": "string",
-            "enum": [
-              "LECTURE_ROOM",
-              "WORKSHOP",
-              "COMPUTERS_ROOM",
-              "CHEMISTRY_LABORATORY",
-              "OFFICE"
-            ]
-          },
-          "isProjector": {
-            "type": "boolean"
-          },
-          "minPlaces": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "maxPlaces": {
-            "type": "integer",
-            "format": "int32"
           }
         }
       },

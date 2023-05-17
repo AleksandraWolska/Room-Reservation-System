@@ -15,15 +15,15 @@
 
 import * as runtime from '../runtime';
 import type {
-  AvailabilityAt,
+  AvailabilityAtResponse,
   Room,
   RoomFilterRequest,
   RoomTO,
   TimeRequest,
 } from '../models';
 import {
-    AvailabilityAtFromJSON,
-    AvailabilityAtToJSON,
+    AvailabilityAtResponseFromJSON,
+    AvailabilityAtResponseToJSON,
     RoomFromJSON,
     RoomToJSON,
     RoomFilterRequestFromJSON,
@@ -48,7 +48,7 @@ export interface CreateRequest {
 }
 
 export interface FilterRequest {
-    request: RoomFilterRequest;
+    roomFilterRequest: RoomFilterRequest;
 }
 
 export interface OneRequest {
@@ -184,23 +184,22 @@ export class RoomControllerApi extends runtime.BaseAPI {
     /**
      */
     async filterRaw(requestParameters: FilterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Room>>> {
-        if (requestParameters.request === null || requestParameters.request === undefined) {
-            throw new runtime.RequiredError('request','Required parameter requestParameters.request was null or undefined when calling filter.');
+        if (requestParameters.roomFilterRequest === null || requestParameters.roomFilterRequest === undefined) {
+            throw new runtime.RequiredError('roomFilterRequest','Required parameter requestParameters.roomFilterRequest was null or undefined when calling filter.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.request !== undefined) {
-            queryParameters['request'] = requestParameters.request;
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/reservation/rooms/filter`,
-            method: 'GET',
+            method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: RoomFilterRequestToJSON(requestParameters.roomFilterRequest),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(RoomFromJSON));
@@ -247,7 +246,7 @@ export class RoomControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async whenIsFreeRaw(requestParameters: WhenIsFreeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<AvailabilityAt>>> {
+    async whenIsFreeRaw(requestParameters: WhenIsFreeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<AvailabilityAtResponse>>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling whenIsFree.');
         }
@@ -271,12 +270,12 @@ export class RoomControllerApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(AvailabilityAtFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(AvailabilityAtResponseFromJSON));
     }
 
     /**
      */
-    async whenIsFree(requestParameters: WhenIsFreeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<AvailabilityAt>> {
+    async whenIsFree(requestParameters: WhenIsFreeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<AvailabilityAtResponse>> {
         const response = await this.whenIsFreeRaw(requestParameters, initOverrides);
         return await response.value();
     }

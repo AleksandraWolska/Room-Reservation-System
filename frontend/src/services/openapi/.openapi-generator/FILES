@@ -3,7 +3,7 @@ apis/ReservationControllerApi.ts
 apis/RoomControllerApi.ts
 apis/index.ts
 index.ts
-models/AvailabilityAt.ts
+models/AvailabilityAtResponse.ts
 models/Building.ts
 models/BuildingWithRoomsResponse.ts
 models/Reservation.ts
