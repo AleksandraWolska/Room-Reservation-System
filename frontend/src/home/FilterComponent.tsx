@@ -1,4 +1,6 @@
 import React, { useState, ChangeEvent } from 'react';
+import { RoomFilterRequest } from '../services/openapi';
+import { RoomFilterRequestRoomTypeEnum } from '../services/openapi';
 import {
   TextField,
   FormControl,
@@ -8,42 +10,58 @@ import {
   Checkbox,
   FormControlLabel,
   Button,
+  SelectChangeEvent,
 } from '@mui/material';
 
-interface FilterValues {
-  from: string;
-  to: string;
-  buildingName: string;
-  roomType: string;
-  isProjector: boolean;
-  minPlaces: number;
-  maxPlaces: number;
-}
+// interface Room {
+//   from: string;
+//   to: string;
+//   buildingName: string;
+//   roomType: string;
+//   isProjector: boolean;
+//   minPlaces: number;
+//   maxPlaces: number;
+// }
 
 export const FilterComponent: React.FC<{}> = () => {
-  const [formValues, setFormValues] = useState<FilterValues>({
-    from: '',
-    to: '',
-    buildingName: '',
-    roomType: '',
+  const [formValues, setFormValues] = useState<RoomFilterRequest>({
+    from: undefined,
+    to: undefined,
+    buildingName: undefined,
+    roomType: undefined,
     isProjector: false,
-    minPlaces: 0,
-    maxPlaces: 0,
+    minPlaces: undefined,
+    maxPlaces: undefined,
   });
 
-  const handleChange = (event: ChangeEvent<{ value: unknown; name?: string }>) => {
-    const { name, value } = event.target;
+  const handleChange = (event: any) => {
+    const { name, value, type, checked } = event.target;
+
+    const fieldValue = type === 'checkbox' ? checked : value;
 
     setFormValues((prevValues) => ({
       ...prevValues,
-      [name as string]: value,
+      [name]: fieldValue,
     }));
   };
 
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     console.log(formValues);
-    // Here, send request to API with form values
+    // Here, you can send the form values to an API or perform any other necessary actions
+
+    // Reset the form values if needed
+    setFormValues({
+        from: undefined,
+        to: undefined,
+        buildingName: RoomFilterRequestRoomTypeEnum.LectureRoom,
+        roomType: undefined,
+        isProjector: false,
+        minPlaces: undefined,
+        maxPlaces: undefined,
+    });
   };
 
   return (
@@ -81,9 +99,10 @@ export const FilterComponent: React.FC<{}> = () => {
             name="roomType"
             labelId="roomType-label"
             value={formValues.roomType}
+            onChange={handleChange}
           >
-            <MenuItem value="LECTURE_ROOM">Sala wykładowa</MenuItem>
-            {/* to add */}
+            <MenuItem value={RoomFilterRequestRoomTypeEnum.LectureRoom}>Sala wykładowa</MenuItem>
+            {/* Add more options if there are other types of rooms */}
           </Select>
         </FormControl>
 
