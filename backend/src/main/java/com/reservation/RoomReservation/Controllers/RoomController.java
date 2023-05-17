@@ -1,13 +1,12 @@
 package com.reservation.RoomReservation.Controllers;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.reservation.RoomReservation.Models.*;
 import com.reservation.RoomReservation.Repositories.BuildingRepository;
 import com.reservation.RoomReservation.Repositories.ReservationRepository;
 import com.reservation.RoomReservation.Repositories.RoomRepository;
-import com.reservation.RoomReservation.Utils.AvailabilityAt;
-import com.reservation.RoomReservation.Utils.RoomFilterRequest;
-import com.reservation.RoomReservation.Utils.TimeRequest;
+import com.reservation.RoomReservation.Utils.Responses.AvailabilityAtResponse;
+import com.reservation.RoomReservation.Utils.Requests.RoomFilterRequest;
+import com.reservation.RoomReservation.Utils.Requests.TimeRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,15 +46,15 @@ public class RoomController {
     }
 
     @GetMapping("/time/{id}")
-    public ResponseEntity<List<AvailabilityAt>> whenIsFree(@PathVariable Integer id, @RequestBody TimeRequest request){
+    public ResponseEntity<List<AvailabilityAtResponse>> whenIsFree(@PathVariable Integer id, @RequestBody TimeRequest request){
 
         if(!roomRepository.existsById(id)){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
-        ArrayList<AvailabilityAt> daytime = AvailabilityAt.daytime(request.getDate());
+        ArrayList<AvailabilityAtResponse> daytime = AvailabilityAtResponse.daytime(request.getDate());
 
         List<Reservation> reservations = reservationRepository.findByRoom(id);
-        for(AvailabilityAt at : daytime){
+        for(AvailabilityAtResponse at : daytime){
             for(Reservation reservation : reservations){
                 if(at.getTimeId().compareTo(reservation.getReservedFrom()) >= 0 && at.getTimeId().isBefore(reservation.getReservedTo())){
                     at.setIsFree(false);
@@ -66,7 +65,7 @@ public class RoomController {
         return new ResponseEntity<>(daytime, HttpStatus.OK);
     }
 
-    @GetMapping("/filter")
+    @PostMapping("/filter")
     public ResponseEntity<List<Room>> filter(@RequestBody RoomFilterRequest request){
         List<Room> rooms = roomRepository.findAll();
 

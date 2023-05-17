@@ -1,4 +1,4 @@
-package com.reservation.RoomReservation.Utils;
+package com.reservation.RoomReservation.Utils.Responses;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 @Data
-public class AvailabilityAt {
+public class AvailabilityAtResponse {
 
     private static final LocalTime DAY_START = LocalTime.of(7, 0);
     private static final LocalTime DAY_END = LocalTime.of(22, 00);
@@ -17,18 +17,18 @@ public class AvailabilityAt {
     private LocalDateTime timeId;
     private Boolean isFree;
 
-    public AvailabilityAt(LocalDateTime time){
+    public AvailabilityAtResponse(LocalDateTime time){
         timeId = time;
         isFree = true;
     }
 
-    public static ArrayList<AvailabilityAt> daytime(LocalDate day){
-        ArrayList<AvailabilityAt> daytime = new ArrayList<>();
+    public static ArrayList<AvailabilityAtResponse> daytime(LocalDate day){
+        ArrayList<AvailabilityAtResponse> daytime = new ArrayList<>();
 
         LocalDateTime curr = LocalDateTime.of(day, DAY_START);
         while (!curr.equals(LocalDateTime.of(day, DAY_END))){
 
-            daytime.add(new AvailabilityAt(curr));
+            daytime.add(new AvailabilityAtResponse(curr));
             curr = curr.plusMinutes(INTERVAL);
         }
 

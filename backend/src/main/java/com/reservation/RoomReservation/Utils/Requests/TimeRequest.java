@@ -1,4 +1,4 @@
-package com.reservation.RoomReservation.Utils;
+package com.reservation.RoomReservation.Utils.Requests;
 
 import lombok.Data;
 
