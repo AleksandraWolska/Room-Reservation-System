@@ -94,7 +94,7 @@ public class RoomController {
             }
         }
         Boolean isProjector = request.getIsProjector();
-        if(isProjector != null){
+        if(isProjector != null && isProjector){
             rooms = rooms.stream().filter(room -> room.isProjector() == isProjector).toList();
         }
         RoomType roomType = request.getRoomType();
