@@ -49,7 +49,7 @@ public class ReservationController {
     public ResponseEntity<Reservation> one(@PathVariable Integer id){
         Reservation reservation = reservationRepository
                 .findById(id)
-                .orElseThrow(() -> new NoSuchElementException(" "));
+                .orElseThrow(() -> new NoSuchElementException("reservation with id " + id + " does not exist"));
         return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
@@ -57,7 +57,7 @@ public class ReservationController {
     public ResponseEntity<Reservation> one(@PathVariable String email, @PathVariable LocalDateTime createdAt){
         Reservation reservation = reservationRepository
                 .findByUserAndCreation(email, createdAt)
-                .orElseThrow(() -> new NoSuchElementException(email + " at: " + createdAt.toString()));
+                .orElseThrow(() -> new NoSuchElementException("reservation: " + email + " at: " + createdAt.toString()));
         return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
@@ -65,15 +65,17 @@ public class ReservationController {
     public ResponseEntity<Reservation> create(@RequestBody Reservation reservation){
 
         if(reservationRepository.existsById(reservation.getId())){
-            throw new DuplicateKeyException(reservation.toString());
+            throw new DuplicateKeyException("reservation with id: " + reservation.toString() + "already exists");
         }
         return new ResponseEntity<>(reservation, HttpStatus.CREATED);
     }
 
     @PostMapping("/{roomId}{userId}")
     public ResponseEntity<Reservation> reserve(@PathVariable Integer roomId, @PathVariable Integer userId, @RequestBody List<LocalDateTime> timeInstants){
-        Room room = roomRepository.findById(roomId).orElseThrow(() -> new NoSuchElementException("dupa"));
-        User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("dupa"));
+        Room room = roomRepository.findById(roomId)
+                .orElseThrow(() -> new NoSuchElementException("room with id: " + roomId + "does not exist"));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("use with id: " + userId + "does not exist"));
         timeInstants.sort(new Comparator<LocalDateTime>() {
             @Override
             public int compare(LocalDateTime timeInstant, LocalDateTime t1) {
@@ -107,7 +109,7 @@ public class ReservationController {
     public ResponseEntity<Reservation> delete(@PathVariable Integer id){
         Reservation reservation = reservationRepository
                 .findById(id)
-                .orElseThrow(() -> new NoSuchElementException(id.toString()));
+                .orElseThrow(() -> new NoSuchElementException("reservation with id: " + id + "does not exist"));
         reservationRepository.delete(reservation);
         return new ResponseEntity<>(reservation, HttpStatus.OK);
     }

@@ -7,11 +7,8 @@
     <list default="true" id="890a5610-6f13-4a6c-8f72-a7bb4a873656" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/BuildingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/BuildingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/ReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/ReservationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/RoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/RoomController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/AvailabilityAt.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/Responses/AvailabilityAtResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/BuildingWithRoomsResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/Responses/BuildingWithRoomsResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/RoomFilterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/Requests/RoomFilterRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/TimeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/Requests/TimeRequest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +125,7 @@
       <workItem from="1684142311654" duration="22391000" />
       <workItem from="1684258107924" duration="8907000" />
       <workItem from="1684267644388" duration="188000" />
-      <workItem from="1684316833627" duration="2539000" />
+      <workItem from="1684316833627" duration="5007000" />
     </task>
     <servers />
   </component>

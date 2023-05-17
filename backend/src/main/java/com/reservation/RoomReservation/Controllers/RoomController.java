@@ -41,7 +41,7 @@ public class RoomController {
     public ResponseEntity<Room> one(@PathVariable String buildingName, @PathVariable Integer number){
         Room room = roomRepository
                 .findByNumberInBuilding(number, buildingName)
-                .orElseThrow(() -> new NoSuchElementException("building "+buildingName+" does not exist"));
+                .orElseThrow(() -> new NoSuchElementException("building " + buildingName + " does not exist or room " + number + "does not exist"));
         return new ResponseEntity<>(room, HttpStatus.OK);
     }
 
@@ -115,7 +115,8 @@ public class RoomController {
 
     @PostMapping("/")
     public ResponseEntity<Room> create(@RequestBody RoomTO roomTO){
-        Building building = buildingRepository.findById(roomTO.getBuildingId()).orElseThrow(() -> new NoSuchElementException(" "));
+        Building building = buildingRepository.findById(roomTO.getBuildingId())
+                .orElseThrow(() -> new NoSuchElementException("building with id " + roomTO.getBuildingId() + " does not exist"));
 
         Room room = new Room();
         room.setPlaces(roomTO.getPlaces());
@@ -134,7 +135,7 @@ public class RoomController {
     public ResponseEntity<Room> delete(@PathVariable String name, @PathVariable Integer number){
         Room room = roomRepository
                 .findByNumberInBuilding(number, name)
-                .orElseThrow(() -> new NoSuchElementException(name));
+                .orElseThrow(() -> new NoSuchElementException("building " + name + "does not exist, or room " + number + " does not exist"));
         roomRepository.delete(room);
         return new ResponseEntity<>(room, HttpStatus.OK);
     }

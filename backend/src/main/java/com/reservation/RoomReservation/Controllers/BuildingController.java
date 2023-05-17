@@ -48,7 +48,7 @@ public class BuildingController {
     public ResponseEntity<Building> one(@PathVariable Integer id){
         Building building = buildingRepository
                 .findById(id)
-                .orElseThrow(() -> new NoSuchElementException(String.valueOf(id)));
+                .orElseThrow(() -> new NoSuchElementException("building with id: " + id + "does not exist"));
         return new ResponseEntity<>(building, HttpStatus.OK);
     }
 
@@ -56,7 +56,7 @@ public class BuildingController {
     public ResponseEntity<BuildingWithRoomsResponse> oneWithRooms(@PathVariable Integer id){
         Building building = buildingRepository
                 .findById(id)
-                .orElseThrow(() -> new NoSuchElementException(String.valueOf("room with id: " + id + "does not exist")));
+                .orElseThrow(() -> new NoSuchElementException("building with id: " + id + "does not exist"));
 
         List<Room> rooms = roomRepository.findByBuilding(building.getName());
 
@@ -64,11 +64,11 @@ public class BuildingController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/name/{name}")
     public ResponseEntity<Building> oneByName(@PathVariable String name){
         Building building = buildingRepository
                 .findByName(name)
-                .orElseThrow(() -> new NoSuchElementException("room " + name + "does not exist"));
+                .orElseThrow(() -> new NoSuchElementException("building " + name + "does not exist"));
         return new ResponseEntity<>(building, HttpStatus.OK);
     }
 
@@ -81,14 +81,15 @@ public class BuildingController {
     public ResponseEntity<Building> delete(@PathVariable Integer id){
         Building building = buildingRepository
                 .findById(id)
-                .orElseThrow(() -> new NoSuchElementException(String.valueOf(id)));
+                .orElseThrow(() -> new NoSuchElementException("building with id: " + id + "does not exist"));
         buildingRepository.delete(building);
         return new ResponseEntity<>(building, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{name}")
+    @DeleteMapping("/name/{name}")
     public ResponseEntity<Building> deleteByName(@PathVariable String name){
-        Building building = buildingRepository.findByName(name).orElseThrow(() -> new NoSuchElementException(name));
+        Building building = buildingRepository.findByName(name)
+                .orElseThrow(() -> new NoSuchElementException("building " + name + "does not exist"));
         buildingRepository.delete(building);
         return new ResponseEntity<>(building, HttpStatus.OK);
     }
