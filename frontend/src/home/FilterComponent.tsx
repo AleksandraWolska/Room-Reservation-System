@@ -1,146 +1,126 @@
 import React, { useState, ChangeEvent } from 'react';
-import { RoomFilterRequest } from '../services/openapi';
-import { RoomFilterRequestRoomTypeEnum } from '../services/openapi';
-import {
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Checkbox,
-  FormControlLabel,
-  Button,
-  SelectChangeEvent,
-} from '@mui/material';
+import { RoomControllerApi, RoomFilterRequest, RoomFilterRequestRoomTypeEnum } from '../services/openapi';
+import { TextField, FormControl, InputLabel, Select, MenuItem, Checkbox, FormControlLabel, Button } from '@mui/material';
 
-// interface Room {
-//   from: string;
-//   to: string;
-//   buildingName: string;
-//   roomType: string;
-//   isProjector: boolean;
-//   minPlaces: number;
-//   maxPlaces: number;
-// }
+interface FilterComponentProps {
+    onFormSubmit: (values: RoomFilterRequest) => void;
+}
 
-export const FilterComponent: React.FC<{}> = () => {
-  const [formValues, setFormValues] = useState<RoomFilterRequest>({
-    from: undefined,
-    to: undefined,
-    buildingName: undefined,
-    roomType: undefined,
-    isProjector: false,
-    minPlaces: undefined,
-    maxPlaces: undefined,
-  });
+// The initial state of the form
+const initialState: RoomFilterRequest = {
+};
 
-  const handleChange = (event: any) => {
-    const { name, value, type, checked } = event.target;
+const useFormFields = (initialState: RoomFilterRequest) => {
+    const [formValues, setFormValues] = useState<RoomFilterRequest>(initialState);
 
-    const fieldValue = type === 'checkbox' ? checked : value;
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = event.target;
+        setFormValues(prevState => ({ ...prevState, [name]: value }));
+    };
 
-    setFormValues((prevValues) => ({
-      ...prevValues,
-      [name]: fieldValue,
-    }));
-  };
+    const handleSelectChange = (event: any) => {
+        const { name, value } = event.target;
+        if (name)
+            setFormValues(prevState => ({ ...prevState, [name]: value }));
+    };
 
+    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, checked } = event.target;
+        setFormValues(prevState => ({ ...prevState, [name]: checked }));
+    };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    return { formValues, setFormValues, handleInputChange, handleSelectChange, handleCheckboxChange };
+};
 
-    console.log(formValues);
-    // Here, you can send the form values to an API or perform any other necessary actions
+export const FilterComponent: React.FC<FilterComponentProps> = ({ onFormSubmit }) => {
+    const { formValues, setFormValues, handleInputChange, handleSelectChange, handleCheckboxChange } = useFormFields(initialState);
 
-    // Reset the form values if needed
-    setFormValues({
-        from: undefined,
-        to: undefined,
-        buildingName: RoomFilterRequestRoomTypeEnum.LectureRoom,
-        roomType: undefined,
-        isProjector: false,
-        minPlaces: undefined,
-        maxPlaces: undefined,
-    });
-  };
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
 
-  return (
-    <div>
-      <h1>Filter</h1>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          id="from"
-          name="from"
-          label="From"
-          type="datetime-local"
-          value={formValues.from}
-          onChange={handleChange}
-        />
-        <TextField
-          id="to"
-          name="to"
-          label="To"
-          type="datetime-local"
-          value={formValues.to}
-          onChange={handleChange}
-        />
-        <TextField
-          id="buildingName"
-          name="buildingName"
-          label="Building Name"
-          value={formValues.buildingName}
-          onChange={handleChange}
-        />
+        // Pass the form values to the parent component
+        onFormSubmit(formValues);
 
-        <FormControl>
-          <InputLabel id="roomType-label">Room Type</InputLabel>
-          <Select
-            id="roomType"
-            name="roomType"
-            labelId="roomType-label"
-            value={formValues.roomType}
-            onChange={handleChange}
-          >
-            <MenuItem value={RoomFilterRequestRoomTypeEnum.LectureRoom}>Sala wykładowa</MenuItem>
-            {/* Add more options if there are other types of rooms */}
-          </Select>
-        </FormControl>
+        // Reset the form values
+        setFormValues(initialState);
+    };
+    return (
+        <div>
+            <h1>Filter</h1>
+            <form onSubmit={handleSubmit}>
+                <TextField
+                    id="from"
+                    name="from"
+                    label="From"
+                    type="datetime-local"
+                    value={formValues.from}
+                    onChange={handleInputChange}
+                />
+                <TextField
+                    id="to"
+                    name="to"
+                    label="To"
+                    type="datetime-local"
+                    value={formValues.to}
+                    onChange={handleInputChange}
+                />
+                <TextField
+                    id="buildingName"
+                    name="buildingName"
+                    label="Building Name"
+                    value={formValues.buildingName}
+                    onChange={handleInputChange}
+                />
 
-        <FormControlLabel
-          control={
-            <Checkbox
-              id="isProjector"
-              name="isProjector"
-              checked={formValues.isProjector}
-              onChange={handleChange}
-            />
-          }
-          label="Is Projector"
-        />
+                <FormControl>
+                    <InputLabel id="roomType-label">Room Type</InputLabel>
+                    <Select
+                        id="roomType"
+                        name="roomType"
+                        labelId="roomType-label"
+                        value={formValues.roomType}
+                        onChange={handleSelectChange}
+                    >
+                        <MenuItem value={RoomFilterRequestRoomTypeEnum.LectureRoom}>Sala wykładowa</MenuItem>
+                        {/* Add more options if there are other types of rooms */}
+                    </Select>
+                </FormControl>
 
-        <TextField
-          id="minPlaces"
-          name="minPlaces"
-          label="Minimum Places"
-          type="number"
-          value={formValues.minPlaces}
-          onChange={handleChange}
-        />
-        <TextField
-          id="maxPlaces"
-          name="maxPlaces"
-          label="Maximum Places"
-          type="number"
-          value={formValues.maxPlaces}
-          onChange={handleChange}
-        />
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            id="isProjector"
+                            name="isProjector"
+                            checked={formValues.isProjector}
+                            onChange={handleCheckboxChange}
+                        />
+                    }
+                    label="Is Projector"
+                />
 
-        <Button type="submit" variant="contained" color="primary">
-          Szukaj
-        </Button>
-      </form>
-    </div>
-  );
+                <TextField
+                    id="minPlaces"
+                    name="minPlaces"
+                    label="Minimum Places"
+                    type="number"
+                    value={formValues.minPlaces}
+                    onChange={handleInputChange}
+                />
+                <TextField
+                    id="maxPlaces"
+                    name="maxPlaces"
+                    label="Maximum Places"
+                    type="number"
+                    value={formValues.maxPlaces}
+                    onChange={handleInputChange}
+                />
+
+                <Button type="submit" variant="contained" color="primary">
+                    Szukaj
+                </Button>
+            </form>
+        </div>
+    );
 };
 
 export default FilterComponent;

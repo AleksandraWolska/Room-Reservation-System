@@ -6,15 +6,14 @@ import ListComponent from './components/ListComponent';
 import RoomsList from './components/RoomList';
 import BuildingsList from './components/BuildingList';
 import FilterComponent from './home/FilterComponent';
+import Home from './home/Home';
 
 function App() {
   return (
     <div className="App">
 
       {/* <LoginPage /> */}
-<FilterComponent />
-<BuildingsList />
-<RoomsList />
+<Home />
       {/* <ListComponent /> */}
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
