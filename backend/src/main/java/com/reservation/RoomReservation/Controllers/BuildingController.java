@@ -4,7 +4,7 @@ import com.reservation.RoomReservation.Models.Building;
 import com.reservation.RoomReservation.Models.Room;
 import com.reservation.RoomReservation.Repositories.BuildingRepository;
 import com.reservation.RoomReservation.Repositories.RoomRepository;
-import com.reservation.RoomReservation.Utils.BuildingWithRoomsResponse;
+import com.reservation.RoomReservation.Utils.Responses.BuildingWithRoomsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,7 +56,7 @@ public class BuildingController {
     public ResponseEntity<BuildingWithRoomsResponse> oneWithRooms(@PathVariable Integer id){
         Building building = buildingRepository
                 .findById(id)
-                .orElseThrow(() -> new NoSuchElementException(String.valueOf(id)));
+                .orElseThrow(() -> new NoSuchElementException(String.valueOf("room with id: " + id + "does not exist")));
 
         List<Room> rooms = roomRepository.findByBuilding(building.getName());
 
@@ -68,7 +68,7 @@ public class BuildingController {
     public ResponseEntity<Building> oneByName(@PathVariable String name){
         Building building = buildingRepository
                 .findByName(name)
-                .orElseThrow(() -> new NoSuchElementException(name));
+                .orElseThrow(() -> new NoSuchElementException("room " + name + "does not exist"));
         return new ResponseEntity<>(building, HttpStatus.OK);
     }
 

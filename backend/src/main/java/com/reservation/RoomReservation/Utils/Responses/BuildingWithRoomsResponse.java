@@ -1,4 +1,4 @@
-package com.reservation.RoomReservation.Utils;
+package com.reservation.RoomReservation.Utils.Responses;
 
 import com.reservation.RoomReservation.Models.Building;
 import com.reservation.RoomReservation.Models.Room;
