@@ -16,17 +16,18 @@
 import * as runtime from '../runtime';
 import type {
   Reservation,
-  TimeInstant,
 } from '../models';
 import {
     ReservationFromJSON,
     ReservationToJSON,
-    TimeInstantFromJSON,
-    TimeInstantToJSON,
 } from '../models';
 
-export interface AllUserRequest {
+export interface AllByUserEmailRequest {
     email: string;
+}
+
+export interface AllByUserIdRequest {
+    userId: number;
 }
 
 export interface Create1Request {
@@ -38,18 +39,18 @@ export interface Delete1Request {
 }
 
 export interface One1Request {
-    email: string;
-    createdAt: Date;
+    id: number;
 }
 
-export interface OneIdRequest {
-    id: number;
+export interface One2Request {
+    email: string;
+    createdAt: Date;
 }
 
 export interface ReserveRequest {
     roomId: number;
     userId: number;
-    timeInstant: Array<TimeInstant>;
+    requestBody: Array<Date>;
 }
 
 /**
@@ -83,9 +84,9 @@ export class ReservationControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async allUserRaw(requestParameters: AllUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Reservation>>> {
+    async allByUserEmailRaw(requestParameters: AllByUserEmailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Reservation>>> {
         if (requestParameters.email === null || requestParameters.email === undefined) {
-            throw new runtime.RequiredError('email','Required parameter requestParameters.email was null or undefined when calling allUser.');
+            throw new runtime.RequiredError('email','Required parameter requestParameters.email was null or undefined when calling allByUserEmail.');
         }
 
         const queryParameters: any = {};
@@ -93,7 +94,7 @@ export class ReservationControllerApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/reservation/reservations/{email}`.replace(`{${"email"}}`, encodeURIComponent(String(requestParameters.email))),
+            path: `/reservation/reservations/user/email/{email}`.replace(`{${"email"}}`, encodeURIComponent(String(requestParameters.email))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -104,8 +105,36 @@ export class ReservationControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async allUser(requestParameters: AllUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Reservation>> {
-        const response = await this.allUserRaw(requestParameters, initOverrides);
+    async allByUserEmail(requestParameters: AllByUserEmailRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Reservation>> {
+        const response = await this.allByUserEmailRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async allByUserIdRaw(requestParameters: AllByUserIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Reservation>>> {
+        if (requestParameters.userId === null || requestParameters.userId === undefined) {
+            throw new runtime.RequiredError('userId','Required parameter requestParameters.userId was null or undefined when calling allByUserId.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/reservation/reservations/user/{userId}`.replace(`{${"userId"}}`, encodeURIComponent(String(requestParameters.userId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ReservationFromJSON));
+    }
+
+    /**
+     */
+    async allByUserId(requestParameters: AllByUserIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Reservation>> {
+        const response = await this.allByUserIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -171,40 +200,8 @@ export class ReservationControllerApi extends runtime.BaseAPI {
     /**
      */
     async one1Raw(requestParameters: One1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Reservation>> {
-        if (requestParameters.email === null || requestParameters.email === undefined) {
-            throw new runtime.RequiredError('email','Required parameter requestParameters.email was null or undefined when calling one1.');
-        }
-
-        if (requestParameters.createdAt === null || requestParameters.createdAt === undefined) {
-            throw new runtime.RequiredError('createdAt','Required parameter requestParameters.createdAt was null or undefined when calling one1.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        const response = await this.request({
-            path: `/reservation/reservations/{email}{createdAt}`.replace(`{${"email"}}`, encodeURIComponent(String(requestParameters.email))).replace(`{${"createdAt"}}`, encodeURIComponent(String(requestParameters.createdAt))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ReservationFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async one1(requestParameters: One1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Reservation> {
-        const response = await this.one1Raw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
-    async oneIdRaw(requestParameters: OneIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Reservation>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling oneId.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling one1.');
         }
 
         const queryParameters: any = {};
@@ -223,8 +220,40 @@ export class ReservationControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async oneId(requestParameters: OneIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Reservation> {
-        const response = await this.oneIdRaw(requestParameters, initOverrides);
+    async one1(requestParameters: One1Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Reservation> {
+        const response = await this.one1Raw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async one2Raw(requestParameters: One2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Reservation>> {
+        if (requestParameters.email === null || requestParameters.email === undefined) {
+            throw new runtime.RequiredError('email','Required parameter requestParameters.email was null or undefined when calling one2.');
+        }
+
+        if (requestParameters.createdAt === null || requestParameters.createdAt === undefined) {
+            throw new runtime.RequiredError('createdAt','Required parameter requestParameters.createdAt was null or undefined when calling one2.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/reservation/reservations/{email}{createdAt}`.replace(`{${"email"}}`, encodeURIComponent(String(requestParameters.email))).replace(`{${"createdAt"}}`, encodeURIComponent(String(requestParameters.createdAt))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReservationFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async one2(requestParameters: One2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Reservation> {
+        const response = await this.one2Raw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -239,8 +268,8 @@ export class ReservationControllerApi extends runtime.BaseAPI {
             throw new runtime.RequiredError('userId','Required parameter requestParameters.userId was null or undefined when calling reserve.');
         }
 
-        if (requestParameters.timeInstant === null || requestParameters.timeInstant === undefined) {
-            throw new runtime.RequiredError('timeInstant','Required parameter requestParameters.timeInstant was null or undefined when calling reserve.');
+        if (requestParameters.requestBody === null || requestParameters.requestBody === undefined) {
+            throw new runtime.RequiredError('requestBody','Required parameter requestParameters.requestBody was null or undefined when calling reserve.');
         }
 
         const queryParameters: any = {};
@@ -254,7 +283,7 @@ export class ReservationControllerApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.timeInstant.map(TimeInstantToJSON),
+            body: requestParameters.requestBody,
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ReservationFromJSON(jsonValue));

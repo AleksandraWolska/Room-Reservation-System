@@ -4,13 +4,16 @@ import './App.css';
 import LoginPage from './login/LoginPage';
 import ListComponent from './components/ListComponent';
 import RoomsList from './components/RoomList';
+import BuildingsList from './components/BuildingList';
+import FilterComponent from './home/FilterComponent';
 
 function App() {
   return (
     <div className="App">
 
       {/* <LoginPage /> */}
-
+<FilterComponent />
+<BuildingsList />
 <RoomsList />
       {/* <ListComponent /> */}
       {/* <header className="App-header">

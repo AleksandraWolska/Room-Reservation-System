@@ -31,6 +31,18 @@ export interface Building {
      * @memberof Building
      */
     name?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof Building
+     */
+    latitude?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof Building
+     */
+    longitude?: number;
 }
 
 /**
@@ -54,6 +66,8 @@ export function BuildingFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         
         'id': !exists(json, 'id') ? undefined : json['id'],
         'name': !exists(json, 'name') ? undefined : json['name'],
+        'latitude': !exists(json, 'latitude') ? undefined : json['latitude'],
+        'longitude': !exists(json, 'longitude') ? undefined : json['longitude'],
     };
 }
 
@@ -68,6 +82,8 @@ export function BuildingToJSON(value?: Building | null): any {
         
         'id': value.id,
         'name': value.name,
+        'latitude': value.latitude,
+        'longitude': value.longitude,
     };
 }
 

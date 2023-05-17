@@ -1,4 +1,3 @@
-.openapi-generator-ignore
 apis/BuildingControllerApi.ts
 apis/ReservationControllerApi.ts
 apis/RoomControllerApi.ts
@@ -6,11 +5,11 @@ apis/index.ts
 index.ts
 models/AvailabilityAt.ts
 models/Building.ts
+models/BuildingWithRoomsResponse.ts
 models/Reservation.ts
 models/Room.ts
 models/RoomFilterRequest.ts
 models/RoomTO.ts
-models/TimeInstant.ts
 models/TimeRequest.ts
 models/User.ts
 models/index.ts

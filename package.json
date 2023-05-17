@@ -3,11 +3,11 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
-      "frontend": "cd frontend && npm start",
-      "backend": "",
-      "app": "start cmd.exe /C \"npm run frontend --prefix ./frontend\" && start cmd.exe /C \"npm run <komenda dla backendu>"
+        "frontend": "cd frontend && npm start",
+        "backend": "",
+        "app": "start cmd.exe /C \"npm run frontend --prefix ./frontend\" && start cmd.exe /C \"npm run <komenda dla backendu>"
     },
-    "dependencies": {},
-    "devDependencies": {}
-  }
-  
+    "dependencies": {
+        "formik": "^2.2.9"
+    }
+}

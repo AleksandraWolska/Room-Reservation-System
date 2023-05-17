@@ -23,5 +23,7 @@
 /frontend/yarn-error.log*
 
 
+node_modules
+
 
 #BACKEND GITIGNORE FILES
