@@ -42,7 +42,7 @@ public class RoomController {
     public ResponseEntity<Room> one(@PathVariable String buildingName, @PathVariable Integer number){
         Room room = roomRepository
                 .findByNumberInBuilding(number, buildingName)
-                .orElseThrow(() -> new NoSuchElementException(buildingName));
+                .orElseThrow(() -> new NoSuchElementException("building "+buildingName+" does not exist"));
         return new ResponseEntity<>(room, HttpStatus.OK);
     }
 
@@ -89,8 +89,10 @@ public class RoomController {
 
         String buildingName = request.getBuildingName();
         if(buildingName != null){
-            Building building = buildingRepository.findByName(buildingName).orElseThrow(() -> new NoSuchElementException("dzban"));
-            rooms = rooms.stream().filter(room -> room.getBuilding().equals(building)).toList();
+            Optional<Building> building = buildingRepository.findByName(buildingName);
+            if(building.isPresent()) {
+                rooms = rooms.stream().filter(room -> room.getBuilding().equals(building.get())).toList();
+            }
         }
         Boolean isProjector = request.getIsProjector();
         if(isProjector != null){

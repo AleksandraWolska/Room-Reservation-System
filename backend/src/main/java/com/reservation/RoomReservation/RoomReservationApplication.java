@@ -23,95 +23,95 @@ public class RoomReservationApplication{
 		SpringApplication.run(RoomReservationApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner commandLineRunner(UserRepository userRepository, BuildingRepository buildingRepository,
-											   RoomRepository roomRepository, ReservationRepository reservationRepository) {
-
-		int NoUsers = 30;
-		int NoBuildings = 10;
-		int maxFloors = 4;
-		int NoRooms = 100;
-		int NoReservations = 300;
-		LocalDateTime startDate = LocalDateTime.of(2023, 3,1,7,0);
-		int maxHours = 13;
-		double lat = 51.10;
-		double longi = 17.05;
-		int maxPlaces = 150 - 8;
-		int maxMonths = 3;
-		int maxDays = 30;
-		int maxDuration = 8;
-
-		RoomType[] types = new RoomType[]{
-				LECTURE_ROOM,
-				WORKSHOP,
-				COMPUTERS_ROOM,
-				CHEMISTRY_LABORATORY,
-				OFFICE};
-
-		ArrayList<User> users = new ArrayList<>();
-		ArrayList<Building> buildings = new ArrayList<>();
-		ArrayList<Room> rooms = new ArrayList<>();
-
-
-		return args -> {
-			Random rng = new Random();
-			for(int i = 0; i < NoUsers; i++){
-				User user = User.builder()
-						.email("user"+i+"@mail.com")
-						.firstname("user")
-						.lastname("name"+i)
-						.password("1234")
-						.build();
-				users.add(user);
-				userRepository.save(user);
-			}
-			for(int i=0; i< NoBuildings; i++){
-				Building building = Building.builder()
-						.name(String.valueOf((char)(rng.nextInt(26)+65))+ "-" + i)
-						.latitude(lat + rng.nextDouble())
-						.longitude(longi + rng.nextDouble())
-						.build();
-				buildings.add(building);
-				buildingRepository.save(building);
-			}
-			for(int i = 0; i < NoRooms; i++){
-				Room room = Room.builder()
-						.building(buildings.get(rng.nextInt(buildings.size())))
-						.floor(rng.nextInt(maxFloors))
-						.projector(rng.nextBoolean())
-						.number(i)
-						.places(rng.nextInt(maxPlaces) + 15)
-						.roomType(types[rng.nextInt(types.length)])
-						.build();
-				rooms.add(room);
-				roomRepository.save(room);
-			}
-			for(int i = 0; i < NoReservations; i++){
-
-
-				Room room = rooms.get(rng.nextInt(rooms.size()));
-				User user = users.get(rng.nextInt(users.size()));
-				for(int j = 0; j < 3; j++){
-					LocalDateTime from = startDate
-							.plusMonths(rng.nextInt(maxMonths))
-							.plusDays(rng.nextInt(maxDays))
-							.plusHours(rng.nextInt(maxHours))
-							.plusMinutes(rng.nextInt(4)*15);
-
-					LocalDateTime to = from.plusMinutes(rng.nextInt(maxDuration)*15);
-					if(reservationRepository.findByRoomInTime(room.getId(), from, to).isEmpty()){
-						Reservation reservation = Reservation.builder()
-								.user(user)
-								.room(room)
-								.reservedTo(to)
-								.reservedFrom(from)
-								.createdAt(from.minusDays(rng.nextInt(7)))
-								.build();
-						reservationRepository.save(reservation);
-					}
-				}
-			}
-		};
-	}
+//	@Bean
+//	public CommandLineRunner commandLineRunner(UserRepository userRepository, BuildingRepository buildingRepository,
+//											   RoomRepository roomRepository, ReservationRepository reservationRepository) {
+//
+//		int NoUsers = 30;
+//		int NoBuildings = 10;
+//		int maxFloors = 4;
+//		int NoRooms = 100;
+//		int NoReservations = 300;
+//		LocalDateTime startDate = LocalDateTime.of(2023, 3,1,7,0);
+//		int maxHours = 13;
+//		double lat = 51.10;
+//		double longi = 17.05;
+//		int maxPlaces = 150 - 8;
+//		int maxMonths = 3;
+//		int maxDays = 30;
+//		int maxDuration = 8;
+//
+//		RoomType[] types = new RoomType[]{
+//				LECTURE_ROOM,
+//				WORKSHOP,
+//				COMPUTERS_ROOM,
+//				CHEMISTRY_LABORATORY,
+//				OFFICE};
+//
+//		ArrayList<User> users = new ArrayList<>();
+//		ArrayList<Building> buildings = new ArrayList<>();
+//		ArrayList<Room> rooms = new ArrayList<>();
+//
+//
+//		return args -> {
+//			Random rng = new Random();
+//			for(int i = 0; i < NoUsers; i++){
+//				User user = User.builder()
+//						.email("user"+i+"@mail.com")
+//						.firstname("user")
+//						.lastname("name"+i)
+//						.password("1234")
+//						.build();
+//				users.add(user);
+//				userRepository.save(user);
+//			}
+//			for(int i=0; i< NoBuildings; i++){
+//				Building building = Building.builder()
+//						.name(String.valueOf((char)(rng.nextInt(26)+65))+ "-" + i)
+//						.latitude(lat + rng.nextDouble())
+//						.longitude(longi + rng.nextDouble())
+//						.build();
+//				buildings.add(building);
+//				buildingRepository.save(building);
+//			}
+//			for(int i = 0; i < NoRooms; i++){
+//				Room room = Room.builder()
+//						.building(buildings.get(rng.nextInt(buildings.size())))
+//						.floor(rng.nextInt(maxFloors))
+//						.projector(rng.nextBoolean())
+//						.number(i)
+//						.places(rng.nextInt(maxPlaces) + 15)
+//						.roomType(types[rng.nextInt(types.length)])
+//						.build();
+//				rooms.add(room);
+//				roomRepository.save(room);
+//			}
+//			for(int i = 0; i < NoReservations; i++){
+//
+//
+//				Room room = rooms.get(rng.nextInt(rooms.size()));
+//				User user = users.get(rng.nextInt(users.size()));
+//				for(int j = 0; j < 3; j++){
+//					LocalDateTime from = startDate
+//							.plusMonths(rng.nextInt(maxMonths))
+//							.plusDays(rng.nextInt(maxDays))
+//							.plusHours(rng.nextInt(maxHours))
+//							.plusMinutes(rng.nextInt(4)*15);
+//
+//					LocalDateTime to = from.plusMinutes(rng.nextInt(maxDuration)*15);
+//					if(reservationRepository.findByRoomInTime(room.getId(), from, to).isEmpty()){
+//						Reservation reservation = Reservation.builder()
+//								.user(user)
+//								.room(room)
+//								.reservedTo(to)
+//								.reservedFrom(from)
+//								.createdAt(from.minusDays(rng.nextInt(7)))
+//								.build();
+//						reservationRepository.save(reservation);
+//					}
+//				}
+//			}
+//		};
+//	}
 
 }
