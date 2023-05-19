@@ -79,7 +79,7 @@ public class ReservationController {
 
         LocalDateTime start = timeInstants.get(0);
 
-        LocalDateTime end = timeInstants.get(timeInstants.size() - 1);
+        LocalDateTime end = timeInstants.get(timeInstants.size() - 1).plusMinutes(15);
 
         List<Reservation> reservationsInTime = reservationRepository.findByRoomInTime(roomId, start, end);
 
