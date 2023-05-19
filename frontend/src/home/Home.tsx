@@ -1,5 +1,5 @@
 
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, List, ListItem, ListItemText, TextField, Dialog, DialogTitle, DialogActions } from '@mui/material';
 import FilterComponent from "./FilterComponent";
 import BuildingsList from "../components/BuildingList";
 import RoomsList from "../components/RoomList";
@@ -27,6 +27,10 @@ const Home = () => {
     const [displayMode, setDisplayMode] = useState(modes.ROOMS)
     const [displayedRoomsList , setDisplayedRoomsList] = useState<Room[]>([])
     const [buildings, setBuildings] = useState<BuildingWithRoomsResponse[]>([]);
+
+    const [showDialog, setShowDialog] = useState(false);
+    const [dialogContent, setDialogContent] = useState(''); // to hold either "successful" or "conflict"
+
 
     const [userId, setUserId] = useState(1)
 
@@ -75,13 +79,27 @@ const Home = () => {
     
           console.log("odpowiedz po rezerwacji")
           console.log(response); // Log the response for debugging purposes.
-        } catch (error) {
-          console.error(error); // Log the error for debugging purposes.
+
+          setDialogContent('Successful');
+          setShowDialog(true);
+
+
+
+        } catch (error : any) {
+            if (error.status === 409) {
+                setDialogContent('Conflict');
+                setShowDialog(true);
+              } else {
+                // handle other errors
+                console.error(error);
+              }
         }
       };
 
 
-
+      const closeDialog = () => {
+        setShowDialog(false);
+      }
 
 
 
@@ -104,6 +122,15 @@ const Home = () => {
             <FilterComponent onFormSubmit={handleFormSubmit} />
 
             <ReservationView id={1} onReservation={handleReservation} />
+
+            <Dialog open={showDialog} onClose={closeDialog}>
+        <DialogTitle>{dialogContent}</DialogTitle>
+        <DialogActions>
+          <Button onClick={closeDialog} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
             <BuildingWithRoomsListView                 
                     buildings={buildings}
                     onRoomSelect={(room) => {

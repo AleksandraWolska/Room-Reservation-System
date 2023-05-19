@@ -27,6 +27,7 @@ const ReservationView: React.FC<RoomAvailabilityProps> = ({ id, onReservation })
       };
       const response = await api.whenIsFree(whenIsFreeRequest);
       setAvailabilityList(response);
+      console.log(response)
     }
   };
 
@@ -46,6 +47,10 @@ const ReservationView: React.FC<RoomAvailabilityProps> = ({ id, onReservation })
 
   const handleReservation = () => {
     onReservation(chosenList, id);
+    setChosenList([])
+    setSelectedIndices([])
+    setSelectedDate(new Date())
+
   };
 
   return (
@@ -54,6 +59,7 @@ const ReservationView: React.FC<RoomAvailabilityProps> = ({ id, onReservation })
         label="Reservation Date"
         value={selectedDate}
         onChange={handleDateChange}
+        minDate={new Date()}
       />
       <Button variant="contained" color="primary" onClick={handleSubmit}>
         Check Availability
@@ -64,7 +70,8 @@ const ReservationView: React.FC<RoomAvailabilityProps> = ({ id, onReservation })
             button 
             key={index} 
             onClick={() => handleSelect(availability, index)}
-            style={selectedIndices.includes(index) ? {backgroundColor: 'lightblue'} : {}}
+            style={selectedIndices.includes(index) ? {backgroundColor: 'lightblue'} : 
+         (!availability.isFree ? {color: 'grey', pointerEvents: 'none'} : {})}
           >
             <ListItemText primary={availability.timeId?.toISOString()} secondary={availability.isFree ? 'Free' : 'Occupied'} />
           </ListItem>
