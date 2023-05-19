@@ -10,6 +10,7 @@ import { BuildingControllerApi } from '../services/openapi/apis/BuildingControll
 import { BuildingWithRoomsResponse } from '../services/openapi/models/BuildingWithRoomsResponse';
 import BuildingWithRoomsListView from "../views/BuildingWithRoomsListView";
 import ReservationView from "../views/ReservationView";
+import BuildingWithRoomsMapView from '../views/BuildingWithRoomsMapView';
 
 const modes = {
     ROOMS: "rooms",
@@ -25,7 +26,7 @@ const Home = () => {
     const roomApi = new RoomControllerApi();
     const reservationApi = new ReservationControllerApi();
     const [displayMode, setDisplayMode] = useState(modes.ROOMS)
-    const [displayedRoomsList , setDisplayedRoomsList] = useState<Room[]>([])
+    const [displayedRoomsList, setDisplayedRoomsList] = useState<Room[]>([])
     const [buildings, setBuildings] = useState<BuildingWithRoomsResponse[]>([]);
 
     const [showDialog, setShowDialog] = useState(false);
@@ -37,15 +38,15 @@ const Home = () => {
 
 
 
-  useEffect(() => {
-    const fetchBuildings = async () => {
-      const api = new BuildingControllerApi();
-      const buildingsData = await api.allWithRooms();
-      setBuildings(buildingsData);
-    }
+    useEffect(() => {
+        const fetchBuildings = async () => {
+            const api = new BuildingControllerApi();
+            const buildingsData = await api.allWithRooms();
+            setBuildings(buildingsData);
+        }
 
-    fetchBuildings();
-  }, []); 
+        fetchBuildings();
+    }, []);
 
 
 
@@ -67,39 +68,39 @@ const Home = () => {
     };
 
 
-    const handleReservation = async (dates: (Date|undefined)[], roomId: number) => {
+    const handleReservation = async (dates: (Date | undefined)[], roomId: number) => {
         try {
-          const validDates = dates.filter(date => date !== undefined) as Date[]; // Ensure there are no undefined dates in the array.
-    
-          const response = await reservationApi.reserve({
-            roomId: roomId,
-            userId: userId,
-            requestBody: validDates,
-          });
-    
-          console.log("odpowiedz po rezerwacji")
-          console.log(response); // Log the response for debugging purposes.
+            const validDates = dates.filter(date => date !== undefined) as Date[]; // Ensure there are no undefined dates in the array.
 
-          setDialogContent('Successful');
-          setShowDialog(true);
+            const response = await reservationApi.reserve({
+                roomId: roomId,
+                userId: userId,
+                requestBody: validDates,
+            });
+
+            console.log("odpowiedz po rezerwacji")
+            console.log(response); // Log the response for debugging purposes.
+
+            setDialogContent('Successful');
+            setShowDialog(true);
 
 
 
-        } catch (error : any) {
+        } catch (error: any) {
             if (error.status === 409) {
                 setDialogContent('Conflict');
                 setShowDialog(true);
-              } else {
+            } else {
                 // handle other errors
                 console.error(error);
-              }
+            }
         }
-      };
+    };
 
 
-      const closeDialog = () => {
+    const closeDialog = () => {
         setShowDialog(false);
-      }
+    }
 
 
 
@@ -112,11 +113,11 @@ const Home = () => {
                     Zaloguj
                 </Button>
             </header>
-            <Button onClick={()=> setDisplayMode(modes.BUILDINGS_WITH_ROOMS)}>Widok budynków</Button>
-            <Button onClick={()=> setDisplayMode(modes.ROOMS)}>Widok pokoi</Button>
+            <Button onClick={() => setDisplayMode(modes.BUILDINGS_WITH_ROOMS)}>Widok budynków</Button>
+            <Button onClick={() => setDisplayMode(modes.ROOMS)}>Widok pokoi</Button>
 
 
-    
+
 
 
             <FilterComponent onFormSubmit={handleFormSubmit} />
@@ -124,25 +125,29 @@ const Home = () => {
             <ReservationView id={1} onReservation={handleReservation} />
 
             <Dialog open={showDialog} onClose={closeDialog}>
-        <DialogTitle>{dialogContent}</DialogTitle>
-        <DialogActions>
-          <Button onClick={closeDialog} color="primary">
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
-            <BuildingWithRoomsListView                 
-                    buildings={buildings}
-                    onRoomSelect={(room) => {
+                <DialogTitle>{dialogContent}</DialogTitle>
+                <DialogActions>
+                    <Button onClick={closeDialog} color="primary">
+                        OK
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+
+
+            <BuildingWithRoomsMapView  buildings={buildings} />
+            <BuildingWithRoomsListView
+                buildings={buildings}
+                onRoomSelect={(room) => {
                     console.log("You selected room number: ", room.number);
-                }}/>
+                }} />
             <RoomListView
                 rooms={displayedRoomsList}
                 onRoomSelect={(room) => {
                     console.log("You selected room number: ", room.number);
                 }}
             />
- 
+
 
             <RoomsList />
 
