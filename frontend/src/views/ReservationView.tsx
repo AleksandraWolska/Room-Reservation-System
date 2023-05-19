@@ -64,19 +64,19 @@ const ReservationView: React.FC<RoomAvailabilityProps> = ({ id, onReservation })
       <Button variant="contained" color="primary" onClick={handleSubmit}>
         Check Availability
       </Button>
-      <List>
-        {availabilityList.map((availability, index) => (
-          <ListItem 
+      <List style={{ maxHeight: '30vh', overflowY: 'auto' }}>
+    {availabilityList.map((availability, index) => (
+        <ListItem 
             button 
             key={index} 
             onClick={() => handleSelect(availability, index)}
             style={selectedIndices.includes(index) ? {backgroundColor: 'lightblue'} : 
          (!availability.isFree ? {color: 'grey', pointerEvents: 'none'} : {})}
-          >
-            <ListItemText primary={availability.timeId?.toISOString()} secondary={availability.isFree ? 'Free' : 'Occupied'} />
-          </ListItem>
-        ))}
-      </List>
+        >
+        <ListItemText primary={availability.timeId?.toISOString()} secondary={availability.isFree ? 'Free' : 'Occupied'} />
+        </ListItem>
+    ))}
+</List>
       <Button variant="contained" color="secondary" onClick={handleReservation}>
         Make Reservation
       </Button>

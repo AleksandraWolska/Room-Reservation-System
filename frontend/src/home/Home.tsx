@@ -1,5 +1,4 @@
-
-import { Button, Typography, List, ListItem, ListItemText, TextField, Dialog, DialogTitle, DialogActions } from '@mui/material';
+import { Button, Typography, Dialog, DialogTitle, DialogActions, Grid, Radio, RadioGroup, FormControlLabel, FormControl, Container } from '@mui/material';
 import FilterComponent from "./FilterComponent";
 import BuildingsList from "../components/BuildingList";
 import RoomsList from "../components/RoomList";
@@ -14,16 +13,15 @@ import BuildingWithRoomsMapView from '../views/BuildingWithRoomsMapView';
 
 const modes = {
     ROOMS: "rooms",
-    FILTERED_ROOMS: "filteredRoomsMode",
-    ALL_ROOMS: "allRooms",
-    BUILDINGS_WITH_ROOMS: "buildingsWithRooms",
-    BUILDINGS_ONLY: "buildingsOnly",
-    RESERVATION_VIEW:"reservationView"
+    BUILDINGS_WITH_ROOMS_MAP: "buildingsWithRoomsMap",
+    BUILDINGS_WITH_ROOMS_LIST: "buildingsWithRoomsList"
 }
 
-
-const Home = () => {
-
+interface HomeProps {
+    userId: number;
+  }
+  
+  const Home: React.FC<HomeProps> = ({ userId }) => {
     const roomApi = new RoomControllerApi();
     const reservationApi = new ReservationControllerApi();
     const [displayMode, setDisplayMode] = useState(modes.ROOMS)
@@ -35,8 +33,7 @@ const Home = () => {
     const [dialogContent, setDialogContent] = useState(''); // to hold either "successful" or "conflict"
 
 
-    const [userId, setUserId] = useState(1)
-    const [chosenRoom, setChosenRoom] = useState()
+    const [chosenRoom, setChosenRoom] = useState<number>()
 
 
 
@@ -107,56 +104,86 @@ const Home = () => {
 
 
 
+    const [view, setView] = useState(modes.BUILDINGS_WITH_ROOMS_MAP);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setView((event.target as HTMLInputElement).value);
+    };
+
+    // ... your useEffect and handle functions ...
+
+    let RightComponent;
+    switch (view) {
+        case modes.BUILDINGS_WITH_ROOMS_MAP:
+            RightComponent = <BuildingWithRoomsMapView buildings={buildings} />;
+            break;
+        case modes.BUILDINGS_WITH_ROOMS_LIST:
+            RightComponent = <BuildingWithRoomsListView buildings={buildings} onRoomSelect={(room) => {
+                console.log("You selected room number: ", room.number);
+                setChosenRoom(room.number)
+            }} />;
+            break;
+        case modes.ROOMS:
+            RightComponent = <RoomListView rooms={displayedRoomsList} onRoomSelect={(room) => {
+                console.log("You selected room number: ", room.number);
+                setChosenRoom(room.number)
+            }} />;
+            break;
+        default:
+            RightComponent = null;
+    }
 
     return (
         <div>
-            <header>
-                <Typography variant="h4">Nasz Serwis</Typography>
-                <Button variant="contained" color="primary">
-                    Zaloguj
-                </Button>
-            </header>
-            <Button onClick={() => setDisplayMode(modes.BUILDINGS_WITH_ROOMS)}>Widok budynków</Button>
-            <Button onClick={() => setDisplayMode(modes.ROOMS)}>Widok pokoi</Button>
+            
+            <Container>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} md={3}>
+                        <Button onClick={() => setView(modes.BUILDINGS_WITH_ROOMS_MAP)}>Widok budynków</Button>
+                        <Button onClick={() => setView(modes.ROOMS)}>Widok pokoi</Button>
 
+                        {view.includes("buildings") && (
+                            <FormControl component="fieldset">
+                                <RadioGroup aria-label="view" name="view" value={view} onChange={handleChange}>
+                                    <FormControlLabel value={modes.BUILDINGS_WITH_ROOMS_MAP} control={<Radio />} label="Map View" />
+                                    <FormControlLabel value={modes.BUILDINGS_WITH_ROOMS_LIST} control={<Radio />} label="List View" />
+                                </RadioGroup>
+                            </FormControl>
+                        )}
 
+                        {view === modes.ROOMS && <FilterComponent onFormSubmit={handleFormSubmit} />}
+                    </Grid>
+                    <Grid item xs={12} md={9}>
+                        {chosenRoom &&
+                            <ReservationView id={chosenRoom} onReservation={handleReservation} />}
 
+                        <Dialog open={showDialog} onClose={closeDialog}>
+                            <DialogTitle>{dialogContent}</DialogTitle>
+                            <DialogActions>
+                                <Button onClick={closeDialog} color="primary">
+                                    OK
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                        {RightComponent}
+                    </Grid>
+                </Grid>
+            </Container>
 
-
-            <FilterComponent onFormSubmit={handleFormSubmit} />
-
-            <ReservationView id={1} onReservation={handleReservation} />
-
-            <Dialog open={showDialog} onClose={closeDialog}>
-                <DialogTitle>{dialogContent}</DialogTitle>
-                <DialogActions>
-                    <Button onClick={closeDialog} color="primary">
-                        OK
-                    </Button>
-                </DialogActions>
-            </Dialog>
-
-
-
-            <BuildingWithRoomsMapView  buildings={buildings} />
-            <BuildingWithRoomsListView
-                buildings={buildings}
-                onRoomSelect={(room) => {
-                    console.log("You selected room number: ", room.number);
-                }} />
-            <RoomListView
-                rooms={displayedRoomsList}
-                onRoomSelect={(room) => {
-                    console.log("You selected room number: ", room.number);
-                }}
-            />
-
-
-            <RoomsList />
 
         </div>
-
     );
 };
 
 export default Home;
+
+
+
+
+
+
+
+
+
+
+
