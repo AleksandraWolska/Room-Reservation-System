@@ -7,8 +7,7 @@ interface FilterComponentProps {
 }
 
 // The initial state of the form
-const initialState: RoomFilterRequest = {
-};
+const initialState: RoomFilterRequest = {};
 
 const useFormFields = (initialState: RoomFilterRequest) => {
     const [formValues, setFormValues] = useState<RoomFilterRequest>(initialState);
@@ -32,18 +31,32 @@ const useFormFields = (initialState: RoomFilterRequest) => {
     return { formValues, setFormValues, handleInputChange, handleSelectChange, handleCheckboxChange };
 };
 
+const resettingState: RoomFilterRequest = {
+    from: undefined,
+    to: undefined,
+    buildingName: undefined,
+    roomType: undefined,
+    isProjector: undefined,
+    minPlaces: undefined,
+    maxPlaces: undefined,
+};
+
 export const FilterComponent: React.FC<FilterComponentProps> = ({ onFormSubmit }) => {
     const { formValues, setFormValues, handleInputChange, handleSelectChange, handleCheckboxChange } = useFormFields(initialState);
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-
-        // Pass the form values to the parent component
         onFormSubmit(formValues);
-
-        // Reset the form values
-        setFormValues(initialState);
     };
+
+    const handleReset = () => {
+        setFormValues({...resettingState});
+        setFormValues(initialState);
+
+        console.log(formValues)
+    };
+
+
     return (
         <div>
             <h1>Filter</h1>
@@ -81,8 +94,14 @@ export const FilterComponent: React.FC<FilterComponentProps> = ({ onFormSubmit }
                         value={formValues.roomType}
                         onChange={handleSelectChange}
                     >
-                        <MenuItem value={RoomFilterRequestRoomTypeEnum.LectureRoom}>Sala wykładowa</MenuItem>
-                        {/* Add more options if there are other types of rooms */}
+                        <MenuItem onClick={() => setFormValues(prevState => ({
+                            ...(Object.fromEntries(
+                                Object.entries(prevState).filter(([key]) => key !== "roomType")
+                            ))}))}>None</MenuItem>
+                        <MenuItem value={RoomFilterRequestRoomTypeEnum.ComputersRoom}>Computer Room</MenuItem>
+                        <MenuItem value={RoomFilterRequestRoomTypeEnum.Office}>Office</MenuItem>
+                        <MenuItem value={RoomFilterRequestRoomTypeEnum.Workshop}>Workshop</MenuItem>
+                        <MenuItem value={RoomFilterRequestRoomTypeEnum.ChemistryLaboratory}>Chemistry Lab</MenuItem>
                     </Select>
                 </FormControl>
 
@@ -118,6 +137,9 @@ export const FilterComponent: React.FC<FilterComponentProps> = ({ onFormSubmit }
                 <Button type="submit" variant="contained" color="primary">
                     Szukaj
                 </Button>
+                <Button type="button" variant="contained" color="secondary" onClick={handleReset}>
+                Reset
+            </Button>
             </form>
         </div>
     );

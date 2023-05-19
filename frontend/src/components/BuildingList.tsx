@@ -4,10 +4,9 @@ import { BuildingWithRoomsResponse } from '../services/openapi/models/BuildingWi
 import { List, ListItem, ListItemText, ListSubheader } from '@mui/material';
 
 const BuildingsList = () => {
-  // Step 2: Create a state variable to hold buildings data
+
   const [buildings, setBuildings] = useState<BuildingWithRoomsResponse[]>([]);
 
-  // Step 3: Use useEffect to fetch the data when the component mounts
   useEffect(() => {
     const fetchBuildings = async () => {
       const api = new BuildingControllerApi();
@@ -18,7 +17,6 @@ const BuildingsList = () => {
     fetchBuildings();
   }, []); 
 
-  // Step 5: In render method, map over the buildings and display the data
   return (
     <List>
       <div>LISTA BUDYNKÓW</div>

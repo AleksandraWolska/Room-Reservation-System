@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+
 import { Button, Typography } from "@mui/material";
 import FilterComponent from "./FilterComponent";
 import BuildingsList from "../components/BuildingList";
 import RoomsList from "../components/RoomList";
 import { FilterRequest, Room, RoomControllerApi, RoomFilterRequest } from "../services/openapi";
 import RoomListView from "../views/RoomListView";
+import React, { useState, useEffect } from 'react';
+import { BuildingControllerApi } from '../services/openapi/apis/BuildingControllerApi';
+import { BuildingWithRoomsResponse } from '../services/openapi/models/BuildingWithRoomsResponse';
+import BuildingWithRoomsListView from "../views/BuildingWithRoomsListView";
 
 const modes = {
     ROOMS: "rooms",
@@ -17,15 +21,27 @@ const modes = {
 
 const Home = () => {
 
-
     const roomApi = new RoomControllerApi();
     const [displayMode, setDisplayMode] = useState(modes.ROOMS)
     const [displayedRoomsList , setDisplayedRoomsList] = useState<Room[]>([])
+    const [buildings, setBuildings] = useState<BuildingWithRoomsResponse[]>([]);
 
-    // Instantiate the API
+
+
+
+  useEffect(() => {
+    const fetchBuildings = async () => {
+      const api = new BuildingControllerApi();
+      const buildingsData = await api.allWithRooms();
+      setBuildings(buildingsData);
+    }
+
+    fetchBuildings();
+  }, []); 
+
+
 
     const handleFormSubmit = (values: RoomFilterRequest) => {
-        // Use the values from the form to make the API request
 
         const requestParameters: FilterRequest = {
             roomFilterRequest: values,
@@ -34,12 +50,10 @@ const Home = () => {
         console.log(requestParameters)
         roomApi.filter(requestParameters)
             .then(response => {
-                // Handle the response here
                 setDisplayedRoomsList(response)
                 console.log(response);
             })
             .catch(error => {
-                // Handle the error here
                 console.error(error);
             });
     };
@@ -51,16 +65,26 @@ const Home = () => {
                     Zaloguj
                 </Button>
             </header>
+            <Button onClick={()=> setDisplayMode(modes.BUILDINGS_WITH_ROOMS)}>Widok budynków</Button>
+            <Button onClick={()=> setDisplayMode(modes.ROOMS)}>Widok pokoi</Button>
+
+
+    
 
             <FilterComponent onFormSubmit={handleFormSubmit} />
-
+            <BuildingWithRoomsListView                 
+                    buildings={buildings}
+                    onRoomSelect={(room) => {
+                    console.log("You selected room number: ", room.number);
+                }}/>
             <RoomListView
                 rooms={displayedRoomsList}
                 onRoomSelect={(room) => {
                     console.log("You selected room number: ", room.number);
                 }}
             />
-            <BuildingsList />
+ 
+
             <RoomsList />
 
         </div>
