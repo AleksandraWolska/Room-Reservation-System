@@ -279,7 +279,7 @@ export class ReservationControllerApi extends runtime.BaseAPI {
         headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
-            path: `/reservation/reservations/{roomId}{userId}`.replace(`{${"roomId"}}`, encodeURIComponent(String(requestParameters.roomId))).replace(`{${"userId"}}`, encodeURIComponent(String(requestParameters.userId))),
+            path: `/reservation/reservations/{roomId}/{userId}`.replace(`{${"roomId"}}`, encodeURIComponent(String(requestParameters.roomId))).replace(`{${"userId"}}`, encodeURIComponent(String(requestParameters.userId))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

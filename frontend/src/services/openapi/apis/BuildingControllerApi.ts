@@ -173,7 +173,7 @@ export class BuildingControllerApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/reservation/buildings/{name}`.replace(`{${"name"}}`, encodeURIComponent(String(requestParameters.name))),
+            path: `/reservation/buildings/name/{name}`.replace(`{${"name"}}`, encodeURIComponent(String(requestParameters.name))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -229,7 +229,7 @@ export class BuildingControllerApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/reservation/buildings/{name}`.replace(`{${"name"}}`, encodeURIComponent(String(requestParameters.name))),
+            path: `/reservation/buildings/name/{name}`.replace(`{${"name"}}`, encodeURIComponent(String(requestParameters.name))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

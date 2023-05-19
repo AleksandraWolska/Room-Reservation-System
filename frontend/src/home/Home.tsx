@@ -3,7 +3,7 @@ import { Button, Typography } from "@mui/material";
 import FilterComponent from "./FilterComponent";
 import BuildingsList from "../components/BuildingList";
 import RoomsList from "../components/RoomList";
-import { FilterRequest, Room, RoomControllerApi, RoomFilterRequest } from "../services/openapi";
+import { FilterRequest, ReservationControllerApi, Room, RoomControllerApi, RoomFilterRequest } from "../services/openapi";
 import RoomListView from "../views/RoomListView";
 import React, { useState, useEffect } from 'react';
 import { BuildingControllerApi } from '../services/openapi/apis/BuildingControllerApi';
@@ -23,9 +23,12 @@ const modes = {
 const Home = () => {
 
     const roomApi = new RoomControllerApi();
+    const reservationApi = new ReservationControllerApi();
     const [displayMode, setDisplayMode] = useState(modes.ROOMS)
     const [displayedRoomsList , setDisplayedRoomsList] = useState<Room[]>([])
     const [buildings, setBuildings] = useState<BuildingWithRoomsResponse[]>([]);
+
+    const [userId, setUserId] = useState(1)
 
 
 
@@ -58,6 +61,31 @@ const Home = () => {
                 console.error(error);
             });
     };
+
+
+    const handleReservation = async (dates: (Date|undefined)[], roomId: number) => {
+        try {
+          const validDates = dates.filter(date => date !== undefined) as Date[]; // Ensure there are no undefined dates in the array.
+    
+          const response = await reservationApi.reserve({
+            roomId: roomId,
+            userId: userId,
+            requestBody: validDates,
+          });
+    
+          console.log("odpowiedz po rezerwacji")
+          console.log(response); // Log the response for debugging purposes.
+        } catch (error) {
+          console.error(error); // Log the error for debugging purposes.
+        }
+      };
+
+
+
+
+
+
+
     return (
         <div>
             <header>
@@ -75,7 +103,7 @@ const Home = () => {
 
             <FilterComponent onFormSubmit={handleFormSubmit} />
 
-            <ReservationView id={1} onReservation={(toReserveArray) => console.log(toReserveArray)} />
+            <ReservationView id={1} onReservation={handleReservation} />
             <BuildingWithRoomsListView                 
                     buildings={buildings}
                     onRoomSelect={(room) => {

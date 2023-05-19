@@ -12,6 +12,50 @@
     }
   ],
   "paths": {
+    "/reservation/rooms/time/{id}": {
+      "post": {
+        "tags": [
+          "room-controller"
+        ],
+        "operationId": "whenIsFree",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AvailabilityAtResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/reservation/rooms/filter": {
       "post": {
         "tags": [
@@ -324,48 +368,6 @@
         }
       }
     },
-    "/reservation/rooms/time/{id}": {
-      "get": {
-        "tags": [
-          "room-controller"
-        ],
-        "operationId": "whenIsFree",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "request",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/TimeRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/AvailabilityAtResponse"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/reservation/reservations/{id}": {
       "get": {
         "tags": [
@@ -532,64 +534,6 @@
         }
       }
     },
-    "/reservation/buildings/{name}": {
-      "get": {
-        "tags": [
-          "building-controller"
-        ],
-        "operationId": "oneByName",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/Building"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "building-controller"
-        ],
-        "operationId": "deleteByName",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/Building"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/reservation/buildings/{id}": {
       "get": {
         "tags": [
@@ -704,6 +648,64 @@
         }
       }
     },
+    "/reservation/buildings/name/{name}": {
+      "get": {
+        "tags": [
+          "building-controller"
+        ],
+        "operationId": "oneByName",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Building"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "building-controller"
+        ],
+        "operationId": "deleteByName",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Building"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/reservation/rooms/{name},{number}": {
       "delete": {
         "tags": [
@@ -746,6 +748,27 @@
   },
   "components": {
     "schemas": {
+      "TimeRequest": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "AvailabilityAtResponse": {
+        "type": "object",
+        "properties": {
+          "timeId": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isFree": {
+            "type": "boolean"
+          }
+        }
+      },
       "RoomFilterRequest": {
         "type": "object",
         "properties": {
@@ -920,27 +943,6 @@
           "password": {
             "type": "string",
             "writeOnly": true
-          }
-        }
-      },
-      "TimeRequest": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "type": "string",
-            "format": "date"
-          }
-        }
-      },
-      "AvailabilityAtResponse": {
-        "type": "object",
-        "properties": {
-          "timeId": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "isFree": {
-            "type": "boolean"
           }
         }
       },

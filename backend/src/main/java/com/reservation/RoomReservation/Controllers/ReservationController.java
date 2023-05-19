@@ -69,7 +69,7 @@ public class ReservationController {
         return new ResponseEntity<>(reservation, HttpStatus.CREATED);
     }
 
-    @PostMapping("/{roomId}{userId}")
+    @PostMapping("/{roomId}/{userId}")
     public ResponseEntity<Reservation> reserve(@PathVariable Integer roomId, @PathVariable Integer userId, @RequestBody List<LocalDateTime> timeInstants){
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new NoSuchElementException("room with id: " + roomId + "does not exist"));

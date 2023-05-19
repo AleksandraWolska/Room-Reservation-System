@@ -58,7 +58,7 @@ export interface OneRequest {
 
 export interface WhenIsFreeRequest {
     id: number;
-    request: TimeRequest;
+    timeRequest: TimeRequest;
 }
 
 /**
@@ -251,23 +251,22 @@ export class RoomControllerApi extends runtime.BaseAPI {
             throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling whenIsFree.');
         }
 
-        if (requestParameters.request === null || requestParameters.request === undefined) {
-            throw new runtime.RequiredError('request','Required parameter requestParameters.request was null or undefined when calling whenIsFree.');
+        if (requestParameters.timeRequest === null || requestParameters.timeRequest === undefined) {
+            throw new runtime.RequiredError('timeRequest','Required parameter requestParameters.timeRequest was null or undefined when calling whenIsFree.');
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.request !== undefined) {
-            queryParameters['request'] = requestParameters.request;
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         const response = await this.request({
             path: `/reservation/rooms/time/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
-            method: 'GET',
+            method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: TimeRequestToJSON(requestParameters.timeRequest),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(AvailabilityAtResponseFromJSON));
