@@ -17,7 +17,8 @@ const modes = {
     FILTERED_ROOMS: "filteredRoomsMode",
     ALL_ROOMS: "allRooms",
     BUILDINGS_WITH_ROOMS: "buildingsWithRooms",
-    BUILDINGS_ONLY: "buildingsOnly"
+    BUILDINGS_ONLY: "buildingsOnly",
+    RESERVATION_VIEW:"reservationView"
 }
 
 
@@ -29,11 +30,13 @@ const Home = () => {
     const [displayedRoomsList, setDisplayedRoomsList] = useState<Room[]>([])
     const [buildings, setBuildings] = useState<BuildingWithRoomsResponse[]>([]);
 
+
     const [showDialog, setShowDialog] = useState(false);
     const [dialogContent, setDialogContent] = useState(''); // to hold either "successful" or "conflict"
 
 
     const [userId, setUserId] = useState(1)
+    const [chosenRoom, setChosenRoom] = useState()
 
 
 
