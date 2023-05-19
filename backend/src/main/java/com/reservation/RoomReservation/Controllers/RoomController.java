@@ -45,7 +45,7 @@ public class RoomController {
         return new ResponseEntity<>(room, HttpStatus.OK);
     }
 
-    @GetMapping("/time/{id}")
+    @PostMapping("/time/{id}")
     public ResponseEntity<List<AvailabilityAtResponse>> whenIsFree(@PathVariable Integer id, @RequestBody TimeRequest request){
 
         if(!roomRepository.existsById(id)){
@@ -95,7 +95,7 @@ public class RoomController {
         }
         Boolean isProjector = request.getIsProjector();
         if(isProjector != null && isProjector){
-            rooms = rooms.stream().filter(room -> room.isProjector() == isProjector).toList();
+            rooms = rooms.stream().filter(Room::isProjector).toList();
         }
         RoomType roomType = request.getRoomType();
         if(roomType != null){

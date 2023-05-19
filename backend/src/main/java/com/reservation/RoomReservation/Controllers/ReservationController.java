@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -65,7 +64,7 @@ public class ReservationController {
     public ResponseEntity<Reservation> create(@RequestBody Reservation reservation){
 
         if(reservationRepository.existsById(reservation.getId())){
-            throw new DuplicateKeyException("reservation with id: " + reservation.toString() + "already exists");
+            throw new DuplicateKeyException("reservation with id: " + reservation + "already exists");
         }
         return new ResponseEntity<>(reservation, HttpStatus.CREATED);
     }
@@ -76,12 +75,7 @@ public class ReservationController {
                 .orElseThrow(() -> new NoSuchElementException("room with id: " + roomId + "does not exist"));
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NoSuchElementException("use with id: " + userId + "does not exist"));
-        timeInstants.sort(new Comparator<LocalDateTime>() {
-            @Override
-            public int compare(LocalDateTime timeInstant, LocalDateTime t1) {
-                return timeInstant.compareTo(t1);
-            }
-        });
+        timeInstants.sort(LocalDateTime::compareTo);
 
         LocalDateTime start = timeInstants.get(0);
 
