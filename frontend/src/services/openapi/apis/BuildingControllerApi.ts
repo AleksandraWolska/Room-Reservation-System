@@ -15,8 +15,8 @@
 
 import * as runtime from '../runtime';
 import type {
-    Building,
-    BuildingWithRoomsResponse,
+  Building,
+  BuildingWithRoomsResponse,
 } from '../models';
 import {
     BuildingFromJSON,
@@ -106,7 +106,7 @@ export class BuildingControllerApi extends runtime.BaseAPI {
      */
     async create2Raw(requestParameters: Create2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Building>> {
         if (requestParameters.building === null || requestParameters.building === undefined) {
-            throw new runtime.RequiredError('building', 'Required parameter requestParameters.building was null or undefined when calling create2.');
+            throw new runtime.RequiredError('building','Required parameter requestParameters.building was null or undefined when calling create2.');
         }
 
         const queryParameters: any = {};
@@ -137,7 +137,7 @@ export class BuildingControllerApi extends runtime.BaseAPI {
      */
     async delete2Raw(requestParameters: Delete2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Building>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling delete2.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling delete2.');
         }
 
         const queryParameters: any = {};
@@ -165,7 +165,7 @@ export class BuildingControllerApi extends runtime.BaseAPI {
      */
     async deleteByNameRaw(requestParameters: DeleteByNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Building>> {
         if (requestParameters.name === null || requestParameters.name === undefined) {
-            throw new runtime.RequiredError('name', 'Required parameter requestParameters.name was null or undefined when calling deleteByName.');
+            throw new runtime.RequiredError('name','Required parameter requestParameters.name was null or undefined when calling deleteByName.');
         }
 
         const queryParameters: any = {};
@@ -193,7 +193,7 @@ export class BuildingControllerApi extends runtime.BaseAPI {
      */
     async one3Raw(requestParameters: One3Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Building>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling one3.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling one3.');
         }
 
         const queryParameters: any = {};
@@ -221,7 +221,7 @@ export class BuildingControllerApi extends runtime.BaseAPI {
      */
     async oneByNameRaw(requestParameters: OneByNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Building>> {
         if (requestParameters.name === null || requestParameters.name === undefined) {
-            throw new runtime.RequiredError('name', 'Required parameter requestParameters.name was null or undefined when calling oneByName.');
+            throw new runtime.RequiredError('name','Required parameter requestParameters.name was null or undefined when calling oneByName.');
         }
 
         const queryParameters: any = {};
@@ -249,7 +249,7 @@ export class BuildingControllerApi extends runtime.BaseAPI {
      */
     async oneWithRoomsRaw(requestParameters: OneWithRoomsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<BuildingWithRoomsResponse>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id', 'Required parameter requestParameters.id was null or undefined when calling oneWithRooms.');
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling oneWithRooms.');
         }
 
         const queryParameters: any = {};

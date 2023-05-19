@@ -9,6 +9,7 @@ import React, { useState, useEffect } from 'react';
 import { BuildingControllerApi } from '../services/openapi/apis/BuildingControllerApi';
 import { BuildingWithRoomsResponse } from '../services/openapi/models/BuildingWithRoomsResponse';
 import BuildingWithRoomsListView from "../views/BuildingWithRoomsListView";
+import ReservationView from "../views/ReservationView";
 
 const modes = {
     ROOMS: "rooms",
@@ -71,7 +72,10 @@ const Home = () => {
 
     
 
+
             <FilterComponent onFormSubmit={handleFormSubmit} />
+
+            <ReservationView id={1} onReservation={(toReserveArray) => console.log(toReserveArray)} />
             <BuildingWithRoomsListView                 
                     buildings={buildings}
                     onRoomSelect={(room) => {
