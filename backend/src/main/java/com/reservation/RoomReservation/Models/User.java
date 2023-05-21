@@ -6,25 +6,21 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Entity
 public class User{
 
     @Id
     @GeneratedValue
-    @Getter
-    @Setter
     private Integer id;
-    @Getter
-    @Setter
     private String firstname;
-    @Getter
-    @Setter
     private String lastname;
-    @Getter
-    @Setter
+
     @Column(unique=true)
     private String email;
-    @Setter
+
     private String password;
+
+    private String role;
 
 }
