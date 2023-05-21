@@ -1,150 +1,143 @@
-import React, { useState, ChangeEvent } from 'react';
+import React from 'react';
 import { RoomControllerApi, RoomFilterRequest, RoomFilterRequestRoomTypeEnum } from '../services/openapi';
-import { TextField, FormControl, InputLabel, Select, MenuItem, Checkbox, FormControlLabel, Button, Grid } from '@mui/material';
+import { Field, Form, Formik } from 'formik';
+import { Button, Checkbox, FormControlLabel, Grid, MenuItem } from '@mui/material';
+import { TextField, Select } from 'formik-material-ui';
 
 interface FilterComponentProps {
     onFormSubmit: (values: RoomFilterRequest) => void;
 }
 
-// The initial state of the form
-const initialState: RoomFilterRequest = {};
-
-const useFormFields = (initialState: RoomFilterRequest) => {
-    const [formValues, setFormValues] = useState<RoomFilterRequest>(initialState);
-
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = event.target;
-        setFormValues(prevState => ({ ...prevState, [name]: value }));
-    };
-
-    const handleSelectChange = (event: any) => {
-        const { name, value } = event.target;
-        if (name)
-            setFormValues(prevState => ({ ...prevState, [name]: value }));
-    };
-
-    const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, checked } = event.target;
-        setFormValues(prevState => ({ ...prevState, [name]: checked }));
-    };
-
-    return { formValues, setFormValues, handleInputChange, handleSelectChange, handleCheckboxChange };
-};
-
 export const FilterComponent: React.FC<FilterComponentProps> = ({ onFormSubmit }) => {
-    const { formValues, setFormValues, handleInputChange, handleSelectChange, handleCheckboxChange } = useFormFields(initialState);
-
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
-        onFormSubmit(formValues);
-    };
-
-    const handleReset = () => {
-        setFormValues(initialState);
-    };
-
     return (
         <div>
             <h1>Filter</h1>
-            <form onSubmit={handleSubmit}>
-                <Grid container spacing={3}>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            fullWidth
-                            id="from"
-                            name="from"
-                            label="From"
-                            type="datetime-local"
-                            value={formValues.from}
-                            onChange={handleInputChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            fullWidth
-                            id="to"
-                            name="to"
-                            label="To"
-                            type="datetime-local"
-                            value={formValues.to}
-                            onChange={handleInputChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            fullWidth
-                            id="buildingName"
-                            name="buildingName"
-                            label="Building Name"
-                            value={formValues.buildingName}
-                            onChange={handleInputChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <FormControl fullWidth>
-                            <InputLabel id="roomType-label">Room Type</InputLabel>
-                            <Select
+            <Formik
+                initialValues={{
+                    from: '',
+                    to: '',
+                    buildingName: '',
+                    roomType: '',
+                    isProjector: false,
+                    minPlaces: '',
+                    maxPlaces: '',
+                }}
+                onSubmit={(values) => {
+
+                    let modifiedValues: RoomFilterRequest = {}
+
+                    
+                    if (values["from"] !== '')  modifiedValues = {...modifiedValues, from: new Date(values["from"])}
+                    if (values["to"] !== '')  modifiedValues = {...modifiedValues, to: new Date(values["to"])}
+                    if (values["buildingName"] !== '')  modifiedValues = {...modifiedValues, buildingName: values["buildingName"]}
+                    //@ts-ignore
+                    if (values["roomType"] !== '')  modifiedValues = {...modifiedValues, roomType: values["roomType"]}
+                    if (values["isProjector"])  modifiedValues = {...modifiedValues, isProjector: true}
+                    if (values["maxPlaces"] !== '')  modifiedValues = {...modifiedValues, maxPlaces: parseInt(values["maxPlaces"])}
+                    if (values["minPlaces"] !== '')  modifiedValues = {...modifiedValues, minPlaces: parseInt(values["minPlaces"])}
+
+                    onFormSubmit(modifiedValues);
+                }}
+                
+                
+            >
+                <Form>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} sm={6}>
+                            <Field
+                                component={TextField}
+                                fullWidth
+                                id="from"
+                                name="from"
+                                label="From"
+                                type="datetime-local"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Field
+                                component={TextField}
+                                fullWidth
+                                id="to"
+                                name="to"
+                                label="To"
+                                type="datetime-local"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Field
+                                component={TextField}
+                                fullWidth
+                                id="buildingName"
+                                name="buildingName"
+                                label="Building Name"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Field
+                                component={Select}
+                                fullWidth
                                 id="roomType"
                                 name="roomType"
-                                labelId="roomType-label"
-                                value={formValues.roomType}
-                                onChange={handleSelectChange}
+                                label="Room Type"
                             >
-                                <MenuItem value="">None</MenuItem>
                                 <MenuItem value={RoomFilterRequestRoomTypeEnum.ComputersRoom}>Computer Room</MenuItem>
                                 <MenuItem value={RoomFilterRequestRoomTypeEnum.Office}>Office</MenuItem>
                                 <MenuItem value={RoomFilterRequestRoomTypeEnum.Workshop}>Workshop</MenuItem>
                                 <MenuItem value={RoomFilterRequestRoomTypeEnum.ChemistryLaboratory}>Chemistry Lab</MenuItem>
-                            </Select>
-                        </FormControl>
+                            </Field>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormControlLabel
+                                control={
+                                    <Field
+                                        type="checkbox"
+                                        component={Checkbox}
+                                        id="isProjector"
+                                        name="isProjector"
+                                    />
+                                }
+                                label="Is Projector"
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Field
+                                component={TextField}
+                                fullWidth
+                                id="minPlaces"
+                                name="minPlaces"
+                                label="Minimum Places"
+                                type="number"
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Field
+                                component={TextField}
+                                fullWidth
+                                id="maxPlaces"
+                                name="maxPlaces"
+                                label="Maximum Places"
+                                type="number"
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Button fullWidth type="submit" variant="contained" color="primary">
+                                Szukaj
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Button fullWidth type="reset" variant="contained" color="secondary">
+                                Reset
+                            </Button>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    id="isProjector"
-                                    name="isProjector"
-                                    checked={formValues.isProjector}
-                                    onChange={handleCheckboxChange}
-                                />
-                            }
-                            label="Is Projector"
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            fullWidth
-                            id="minPlaces"
-                            name="minPlaces"
-                            label="Minimum Places"
-                            type="number"
-                            value={formValues.minPlaces}
-                            onChange={handleInputChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            fullWidth
-                            id="maxPlaces"
-                            name="maxPlaces"
-                            label="Maximum Places"
-                            type="number"
-                            value={formValues.maxPlaces}
-                            onChange={handleInputChange}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Button fullWidth type="submit" variant="contained" color="primary">
-                            Szukaj
-                        </Button>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <Button fullWidth type="button" variant="contained" color="secondary" onClick={handleReset}>
-                            Reset
-                        </Button>
-                    </Grid>
-                </Grid>
-            </form>
+                </Form>
+            </Formik>
         </div>
     );
 };
