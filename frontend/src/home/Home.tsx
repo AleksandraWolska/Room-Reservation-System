@@ -85,7 +85,7 @@ const Home: React.FC<HomeProps> = ({ userId }) => {
       }
     };
     switch (view) {
-      case ViewMode.BuildingsWithRoomsMap: return <BuildingWithRoomsMapView buildings={buildings} />;
+      case ViewMode.BuildingsWithRoomsMap: return <BuildingWithRoomsMapView {...commonProps} buildings={buildings} />;
       case ViewMode.BuildingsWithRoomsList: return <BuildingWithRoomsListView {...commonProps} buildings={buildings} />;
       case ViewMode.Rooms: return <RoomListView {...commonProps} rooms={displayedRoomsList} />;
       default: return null;

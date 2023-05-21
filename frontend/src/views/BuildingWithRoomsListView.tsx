@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BuildingWithRoomsResponse } from '../services/openapi';
-import { List, ListItem, ListItemText, ListItemSecondaryAction, Button, Collapse } from '@mui/material';
+import { List, ListItem, ListItemText, ListItemSecondaryAction, Button, Collapse, Typography } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
 interface BuildingListProps {
@@ -17,6 +17,7 @@ const BuildingWithRoomsListView: React.FC<BuildingListProps> = ({ buildings, onR
   };
 
   const handleRoomSelect = (room: any) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setSelectedRoomId(room.id);
     onRoomSelect(room);
   }
@@ -30,29 +31,44 @@ const BuildingWithRoomsListView: React.FC<BuildingListProps> = ({ buildings, onR
             onClick={() => handleClick(buildingData.building?.id)}
             sx={{
               bgcolor: (open === buildingData.building?.id) ? 'action.selected' : 'inherit',
+              my: 1, // Set vertical margin
             }}
+            divider
           >
-            <ListItemText primary={`Building: ${buildingData.building?.name}`} />
+            <ListItemText primary={
+              <>
+                <Typography variant="h6">{`Building: ${buildingData.building?.name}`}</Typography>
+                <Typography variant="subtitle1">{`Available rooms: ${buildingData.roomsCount}`}</Typography>
+
+              </>
+
+            } sx={{ fontSize: "1.5em"  }} /> {/* Make building names more prominent */}
             {open === buildingData.building?.id ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={open === buildingData.building?.id} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               {buildingData.rooms?.map((room) => (
-                <ListItem
-                  button
-                  key={`${buildingData.building?.id}-${room.id}`}
-                  sx={{
-                    bgcolor: 'inherit',
-                    ml: 2,
-                  }}
-                >
-                  <ListItemText primary={`Room: ${room.number} - Type: ${room.roomType} - Places: ${room.places} - Floor: ${room.floor}`} />
-                  <ListItemSecondaryAction>
-                    <Button variant="contained" color="primary" onClick={() => handleRoomSelect(room)}>
-                      Select
-                    </Button>
-                  </ListItemSecondaryAction>
+                <ListItem key={room.id} sx={{
+                  bgcolor: (selectedRoomId === room.id) ? 'action.hover' : 'inherit', // Highlight selected room
+                  // ml: 4, // Indent the nested list
+                  // my: 0.5, // Set vertical margin for room items
+                }} divider>
+                  <ListItemText
+                    primary={
+                      <>
+                        <Typography variant="h6">{`Room Number: ${room.number}`}</Typography>
+                        <Typography variant="subtitle1">{`Floor: ${room.floor}`}</Typography>
+                        <Typography variant="subtitle1">{`Places: ${room.places}`}</Typography>
+                        <Typography variant="subtitle1">{`Type: ${room.roomType}`}</Typography>
+                        <Typography variant="subtitle1">{`Projector: ${room.projector ? "Yes" : "No"}`}</Typography>
+                      </>
+                    }
+                  />
+                  <Button variant="contained" color="primary" onClick={() => handleRoomSelect(room)}>
+                    Select
+                  </Button>
                 </ListItem>
+
               ))}
             </List>
           </Collapse>
