@@ -1,28 +1,12 @@
 import React, { useState } from 'react';
 import { BuildingWithRoomsResponse } from '../services/openapi';
-import { List, ListItem, ListItemText, ListItemSecondaryAction, Button, Collapse, styled } from '@mui/material';
+import { List, ListItem, ListItemText, ListItemSecondaryAction, Button, Collapse } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
 interface BuildingListProps {
   buildings: BuildingWithRoomsResponse[];
   onRoomSelect: (room: any) => void;
 }
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  color: theme.palette.getContrastText(theme.palette.primary.main),
-  backgroundColor: theme.palette.primary.main,
-  '&:hover': {
-    backgroundColor: theme.palette.primary.dark,
-  },
-}));
-
-const StyledListItem = styled(ListItem)(({ theme }) => ({
-  backgroundColor: theme.palette.action.selected,
-  '&:hover': {
-    backgroundColor: theme.palette.action.hover,
-  },
-}));
-
 
 const BuildingWithRoomsListView: React.FC<BuildingListProps> = ({ buildings, onRoomSelect }) => {
   const [open, setOpen] = useState<number | null>(null);
@@ -35,8 +19,6 @@ const BuildingWithRoomsListView: React.FC<BuildingListProps> = ({ buildings, onR
   const handleRoomSelect = (room: any) => {
     setSelectedRoomId(room.id);
     onRoomSelect(room);
-    setSelectedRoomId(null)
-    setOpen(null)
   }
 
   return (
@@ -48,8 +30,6 @@ const BuildingWithRoomsListView: React.FC<BuildingListProps> = ({ buildings, onR
             onClick={() => handleClick(buildingData.building?.id)}
             sx={{
               bgcolor: (open === buildingData.building?.id) ? 'action.selected' : 'inherit',
-              borderBottom: '1px solid',
-              borderBottomColor: 'divider',
             }}
           >
             <ListItemText primary={`Building: ${buildingData.building?.name}`} />
@@ -58,18 +38,21 @@ const BuildingWithRoomsListView: React.FC<BuildingListProps> = ({ buildings, onR
           <Collapse in={open === buildingData.building?.id} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               {buildingData.rooms?.map((room) => (
-                <StyledListItem
-
+                <ListItem
+                  button
                   key={`${buildingData.building?.id}-${room.id}`}
-                  selected={selectedRoomId === room.id}
+                  sx={{
+                    bgcolor: 'inherit',
+                    ml: 2,
+                  }}
                 >
                   <ListItemText primary={`Room: ${room.number} - Type: ${room.roomType} - Places: ${room.places} - Floor: ${room.floor}`} />
                   <ListItemSecondaryAction>
-                    <StyledButton onClick={() => handleRoomSelect(room)}>
+                    <Button variant="contained" color="primary" onClick={() => handleRoomSelect(room)}>
                       Select
-                    </StyledButton>
+                    </Button>
                   </ListItemSecondaryAction>
-                </StyledListItem>
+                </ListItem>
               ))}
             </List>
           </Collapse>
