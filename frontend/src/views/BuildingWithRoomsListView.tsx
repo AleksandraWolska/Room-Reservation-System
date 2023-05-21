@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BuildingWithRoomsResponse } from '../services/openapi';
 import { List, ListItem, ListItemText, ListItemSecondaryAction, Button, Collapse } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
@@ -8,33 +8,47 @@ interface BuildingListProps {
   onRoomSelect: (room: any) => void;
 }
 
-
-
 const BuildingWithRoomsListView: React.FC<BuildingListProps> = ({ buildings, onRoomSelect }) => {
- // const classes = useStyles();
-  const [open, setOpen] = React.useState<number | null>(null);
+  const [open, setOpen] = useState<number | null>(null);
+  const [selectedRoomId, setSelectedRoomId] = useState<number | null>(null);
 
-  const handleClick = (index: number |undefined) => {
+  const handleClick = (index: number | undefined) => {
     index != undefined && setOpen(open === index ? null : index);
-    console.log("lista budynkow")
-    console.log(buildings)
   };
+
+  const handleRoomSelect = (room: any) => {
+    setSelectedRoomId(room.id);
+    onRoomSelect(room);
+  }
 
   return (
     <List>
       {buildings.map((buildingData) => (
         <>
-          <ListItem onClick={() => handleClick(buildingData.building?.id)}>
+          <ListItem 
+            button
+            onClick={() => handleClick(buildingData.building?.id)}
+            sx={{
+              bgcolor: (open === buildingData.building?.id) ? 'action.selected' : 'inherit',
+            }}
+          >
             <ListItemText primary={`Building: ${buildingData.building?.name}`} />
             {open === buildingData.building?.id ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={open === buildingData.building?.id} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               {buildingData.rooms?.map((room) => (
-                <ListItem  key={`${buildingData.building?.id}-${room.id}`}>
+                <ListItem
+                  button
+                  key={`${buildingData.building?.id}-${room.id}`}
+                  sx={{
+                    bgcolor: 'inherit',
+                    ml: 2,
+                  }}
+                >
                   <ListItemText primary={`Room: ${room.number} - Type: ${room.roomType} - Places: ${room.places} - Floor: ${room.floor}`} />
                   <ListItemSecondaryAction>
-                    <Button variant="contained" color="primary" onClick={() => onRoomSelect(room)}>
+                    <Button variant="contained" color="primary" onClick={() => handleRoomSelect(room)}>
                       Select
                     </Button>
                   </ListItemSecondaryAction>

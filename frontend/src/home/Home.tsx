@@ -1,6 +1,6 @@
-import { Button, Typography, Dialog, DialogTitle, DialogActions, Grid, Radio, RadioGroup, FormControlLabel, FormControl, Container } from '@mui/material';
+import { Button, Typography, Dialog, DialogTitle, DialogActions, Grid, Radio, RadioGroup, FormControlLabel, FormControl, Container, Box, DialogContentText, DialogContent } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import { BuildingControllerApi, FilterRequest, ReservationControllerApi, Room, RoomControllerApi, RoomFilterRequest } from '../services/openapi';
+import { BuildingControllerApi, FilterRequest, Reservation, ReservationControllerApi, Room, RoomControllerApi, RoomFilterRequest } from '../services/openapi';
 
 import FilterComponent from "./FilterComponent";
 import BuildingWithRoomsMapView from '../views/BuildingWithRoomsMapView';
@@ -20,6 +20,8 @@ interface HomeProps {
   userId: number;
 }
 
+type DialogArray = [string, Reservation?, any?];
+
 const Home: React.FC<HomeProps> = ({ userId }) => {
   const roomApi = new RoomControllerApi();
   const reservationApi = new ReservationControllerApi();
@@ -28,9 +30,11 @@ const Home: React.FC<HomeProps> = ({ userId }) => {
   const [displayedRoomsList, setDisplayedRoomsList] = useState<Room[]>([]);
   const [buildings, setBuildings] = useState<BuildingWithRoomsResponse[]>([]);
   const [showDialog, setShowDialog] = useState(false);
-  const [dialogContent, setDialogContent] = useState(''); // to hold either "successful" or "conflict"
-  const [chosenRoom, setChosenRoom] = useState<number>()
+  const [dialogContent, setDialogContent] = useState<DialogArray>(['', undefined, undefined]); // to hold either "successful" or "conflict"
+  const [chosenRoom, setChosenRoom] = useState<Room|undefined>();
+  const [showReservationView, setShowReservationView] = useState(false); // New state
   const [view, setView] = useState(ViewMode.BuildingsWithRoomsMap);
+
 
   useEffect(() => {
     const fetchBuildings = async () => {
@@ -55,11 +59,12 @@ const Home: React.FC<HomeProps> = ({ userId }) => {
     const validDates = dates.filter(date => date !== undefined) as Date[]; // Ensure there are no undefined dates in the array.
     try {
       const response = await reservationApi.reserve({ roomId, userId, requestBody: validDates });
-      setDialogContent('Successful');
+      setDialogContent(["successful", response, undefined]);
       setShowDialog(true);
+      console.log(dialogContent)
     } catch (error: any) {
       if (error.status === 409) {
-        setDialogContent('Conflict');
+        setDialogContent(["conflict", undefined, error]);
         setShowDialog(true);
       } else {
         console.error(error);
@@ -72,7 +77,12 @@ const Home: React.FC<HomeProps> = ({ userId }) => {
   };
 
   const RightComponent = (() => {
-    const commonProps = { onRoomSelect: (room: any) => setChosenRoom(room.number) };
+    const commonProps = { 
+      onRoomSelect: (room: any) => {
+        setChosenRoom(room);
+        setShowReservationView(true); // set showReservationView to true when a room is selected
+      } 
+    };
     switch (view) {
       case ViewMode.BuildingsWithRoomsMap: return <BuildingWithRoomsMapView buildings={buildings} />;
       case ViewMode.BuildingsWithRoomsList: return <BuildingWithRoomsListView {...commonProps} buildings={buildings} />;
@@ -81,30 +91,51 @@ const Home: React.FC<HomeProps> = ({ userId }) => {
     }
   })();
 
+
   return (
-    <Container>
+    <Container sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={3}>
-          <Button onClick={() => setView(ViewMode.BuildingsWithRoomsMap)}>Widok budynków</Button>
-          <Button onClick={() => setView(ViewMode.Rooms)}>Widok pokoi</Button>
-          {view.includes("buildings") && (
-            <FormControl component="fieldset">
-              <RadioGroup aria-label="view" name="view" value={view} onChange={handleChange}>
-                <FormControlLabel value={ViewMode.BuildingsWithRoomsMap} control={<Radio />} label="Map View" />
-                <FormControlLabel value={ViewMode.BuildingsWithRoomsList} control={<Radio />} label="List View" />
-              </RadioGroup>
-            </FormControl>
-          )}
-          {view === ViewMode.Rooms && <FilterComponent onFormSubmit={handleFormSubmit} />}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Button variant="contained" color="primary" onClick={() => setView(ViewMode.BuildingsWithRoomsMap)}>Widok budynków</Button>
+            <Button variant="contained" color="primary" onClick={() => setView(ViewMode.Rooms)}>Widok pokoi</Button>
+            {view.includes("buildings") && (
+              <FormControl component="fieldset">
+                <RadioGroup aria-label="view" name="view" value={view} onChange={handleChange}>
+                  <FormControlLabel value={ViewMode.BuildingsWithRoomsMap} control={<Radio />} label="Map View" />
+                  <FormControlLabel value={ViewMode.BuildingsWithRoomsList} control={<Radio />} label="List View" />
+                </RadioGroup>
+              </FormControl>
+            )}
+            {view === ViewMode.Rooms && <FilterComponent onFormSubmit={handleFormSubmit} />}
+          </Box>
         </Grid>
         <Grid item xs={12} md={9}>
-          {chosenRoom && <ReservationView id={chosenRoom} onReservation={handleReservation} />}
-          <Dialog open={showDialog} onClose={() => setShowDialog(false)}>
-            <DialogTitle>{dialogContent}</DialogTitle>
-            <DialogActions>
-              <Button onClick={() => setShowDialog(false)} color="primary">OK</Button>
-            </DialogActions>
-          </Dialog>
+          {showReservationView && chosenRoom && <ReservationView room={chosenRoom} onReservation={handleReservation} />}
+          <Dialog 
+  open={showDialog} 
+  onClose={() => {
+    setShowDialog(false); 
+    setShowReservationView(false); // hide ReservationView when the dialog is closed
+  }}
+>
+  <DialogTitle>{dialogContent[0] == 'successful' ? 'Reservation Successful' : 'Reservation Conflict'}</DialogTitle>
+  <DialogContent>
+    <DialogContentText>
+      {dialogContent[0] == 'successful' 
+        ? `Your reservation has been successfully made from ${dialogContent[1]?.reservedFrom?.toLocaleDateString()} to ${dialogContent[1]?.reservedTo?.toLocaleDateString()}`
+        : `There was a conflict with your reservation. Please choose a different date or room. Error code: ${dialogContent[2]?.status}`
+      }
+    </DialogContentText>
+
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={() => {
+      setShowDialog(false);
+      setShowReservationView(false); // hide ReservationView when the dialog is closed
+    }} color="primary">OK</Button>
+  </DialogActions>
+</Dialog>
           {RightComponent}
         </Grid>
       </Grid>
