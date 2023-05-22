@@ -38,7 +38,7 @@ function App() {
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                             BOOKING SYSTEM
                         </Typography>
-                        {userData?.id ?
+                        {userData !== undefined ?
                             <>
                                 <Button color="inherit" variant={currentView === View.Home ? "outlined" : "text"} onClick={() => setCurrentView(View.Home)}>Explore</Button>
                                 <Button color="inherit" variant={currentView === View.Reservations ? "outlined" : "text"} onClick={() => setCurrentView(View.Reservations)}>My Reservations</Button>
