@@ -9,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +24,21 @@ public class RoomReservationApplication{
 		SpringApplication.run(RoomReservationApplication.class, args);
 	}
 
+//	@Bean
+//	public CommandLineRunner commandLineRunner(UserRepository userRepository, PasswordEncoder passwordEncoder){
+//
+//		return args -> {
+//			User user = User.builder()
+//						.email("user0@mail.com")
+//						.firstname("user0")
+//						.lastname("name0")
+//						.password(passwordEncoder.encode("1234"))
+//						.role("USER")
+//						.build();
+//				userRepository.save(user);
+//		};
+//
+//	}
 //	@Bean
 //	public CommandLineRunner commandLineRunner(UserRepository userRepository, BuildingRepository buildingRepository,
 //											   RoomRepository roomRepository, ReservationRepository reservationRepository) {

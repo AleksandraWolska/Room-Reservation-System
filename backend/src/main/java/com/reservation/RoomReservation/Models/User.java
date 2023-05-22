@@ -1,6 +1,8 @@
 package com.reservation.RoomReservation.Models;
 
+import com.reservation.RoomReservation.Utils.Validator.ValidEmail;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 @Builder
@@ -17,6 +19,9 @@ public class User{
     private String lastname;
 
     @Column(unique=true)
+    @ValidEmail
+    @NonNull
+    @NotEmpty
     private String email;
 
     private String password;
