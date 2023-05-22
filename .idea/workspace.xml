@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="890a5610-6f13-4a6c-8f72-a7bb4a873656" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/WebSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/WebSecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/RoomReservationApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/RoomReservationApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +63,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Studia/Sem6/ZaawansowaneTechnoloieWebowe/Lab4/books",
+    "last_opened_file_path": "D:/Studia/Sem6/ZaawansowaneTechnoloieWebowe/RESTSpring/security/gs-securing-web/complete",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -68,7 +72,8 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.archetype.catalogs",
+    "settings.editor.splitter.proportion": "0.24120083",
     "spring.configuration.checksum": "a1a93693439fe755f9b4b4007d3c6d2c",
     "vue.rearranger.settings.migration": "true"
   }
@@ -127,6 +132,8 @@
       <workItem from="1684503880488" duration="848000" />
       <workItem from="1684505982416" duration="785000" />
       <workItem from="1684522462214" duration="3758000" />
+      <workItem from="1684682527322" duration="1085000" />
+      <workItem from="1684683713000" duration="13803000" />
     </task>
     <servers />
   </component>
