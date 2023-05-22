@@ -17,6 +17,7 @@ public class WebSecurityConfiguration {
         http.csrf()
             .disable()
             .authorizeHttpRequests()
+            .requestMatchers("/swagger-ui/**", "/v1/**", "/v2/**", "/v3/**", "/swagger/**").permitAll()
             .requestMatchers("/reservation/users/*","/reservation/users/register").permitAll()
             .anyRequest().authenticated()
             .and()
