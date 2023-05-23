@@ -326,6 +326,49 @@
         }
       }
     },
+    "/reservation/users/user": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "user",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reservation/users/": {
+      "get": {
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "success",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/reservation/rooms/{buildingName}": {
       "get": {
         "tags": [
