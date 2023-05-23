@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Typography } from '@mui/material';
+import { User, UserControllerApi } from '../services/openapi'; // Import User and UserControllerApi
 
 interface UserRegister {
   firstname?: string;
@@ -10,6 +11,7 @@ interface UserRegister {
 
 export const RegistrationForm: React.FC = () => {
   const [formData, setFormData] = useState<UserRegister>({});
+  const api = new UserControllerApi(); // Instantiate the UserControllerApi
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -18,9 +20,24 @@ export const RegistrationForm: React.FC = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
+
+    // Create a user object
+    const user: User = {
+      firstname: formData.firstname,
+      lastname: formData.lastname,
+      email: formData.email!,
+      password: formData.password,
+    };
+
+    // Call the register method with the user object
+    try {
+      const response = await api.register({ user });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -1,6 +1,7 @@
 apis/BuildingControllerApi.ts
 apis/ReservationControllerApi.ts
 apis/RoomControllerApi.ts
+apis/UserControllerApi.ts
 apis/index.ts
 index.ts
 models/AvailabilityAtResponse.ts

@@ -42,13 +42,19 @@ export interface User {
      * @type {string}
      * @memberof User
      */
-    email?: string;
+    email: string;
     /**
      * 
      * @type {string}
      * @memberof User
      */
     password?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    role?: string;
 }
 
 /**
@@ -56,6 +62,7 @@ export interface User {
  */
 export function instanceOfUser(value: object): boolean {
     let isInstance = true;
+    isInstance = isInstance && "email" in value;
 
     return isInstance;
 }
@@ -73,8 +80,9 @@ export function UserFromJSONTyped(json: any, ignoreDiscriminator: boolean): User
         'id': !exists(json, 'id') ? undefined : json['id'],
         'firstname': !exists(json, 'firstname') ? undefined : json['firstname'],
         'lastname': !exists(json, 'lastname') ? undefined : json['lastname'],
-        'email': !exists(json, 'email') ? undefined : json['email'],
+        'email': json['email'],
         'password': !exists(json, 'password') ? undefined : json['password'],
+        'role': !exists(json, 'role') ? undefined : json['role'],
     };
 }
 
@@ -92,6 +100,7 @@ export function UserToJSON(value?: User | null): any {
         'lastname': value.lastname,
         'email': value.email,
         'password': value.password,
+        'role': value.role,
     };
 }
 
