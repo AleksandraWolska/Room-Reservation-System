@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="890a5610-6f13-4a6c-8f72-a7bb4a873656" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/user/LoginForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/swagger.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/swagger.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +132,7 @@
       <workItem from="1684683713000" duration="21799000" />
       <workItem from="1684776467177" duration="2104000" />
       <workItem from="1684848017073" duration="1902000" />
-      <workItem from="1684855181444" duration="12758000" />
+      <workItem from="1684855181444" duration="13066000" />
     </task>
     <servers />
   </component>
@@ -166,7 +161,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/sso" />
+                        <option value="sso" />
                       </list>
                     </value>
                   </entry>
