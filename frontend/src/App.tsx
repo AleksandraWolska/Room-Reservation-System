@@ -10,6 +10,8 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { UserReservations } from './user/UserReservations';
 import { User } from './services/openapi';
 import { RegistrationForm } from './user/RegistrationForm'; // Make sure to import the RegistrationForm
+import axios from 'axios';
+import LoginForm from './user/LoginForm';
 
 enum View {
     Home,
@@ -29,10 +31,25 @@ function App() {
     const [userId, setUserId] = useState(null)
     const [userData, setUserData] = useState<User|undefined>(undefined)
     const [currentView, setCurrentView] = useState<View>(View.Home)
+const [login, setLogin] = useState<any>()
+
+
+    const handleLogin= async (event: any) => {
+        event.preventDefault();
+        
+        const response = await axios.get('http://localhost:8080/login')
+
+        setLogin(response.data)
+        console.log(response.data);
+    };
+
+
 
     return (
+
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <div className="App">
+                <LoginForm />
                 <AppBar position="static">
                     <Toolbar>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -47,7 +64,7 @@ function App() {
                             :
                             <>
                                 <Button color="inherit" variant={currentView === View.Registration ? "outlined" : "text"} onClick={() => setCurrentView(View.Registration)}>Register</Button>
-                                <Button color="inherit">Log In</Button>
+                                <Button color="inherit" onClick={handleLogin}>Log In</Button>
                             </>
                         }
                     </Toolbar>
