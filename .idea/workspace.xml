@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="890a5610-6f13-4a6c-8f72-a7bb4a873656" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/MySimpleUrlAuthenticationSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/MySimpleUrlAuthenticationSuccessHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/WebSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/WebSecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Services/MyUserDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Services/MyUserDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +135,9 @@
       <workItem from="1684683713000" duration="21799000" />
       <workItem from="1684776467177" duration="2104000" />
       <workItem from="1684848017073" duration="1902000" />
-      <workItem from="1684855181444" duration="15166000" />
+      <workItem from="1684855181444" duration="15266000" />
+      <workItem from="1684917221542" duration="3178000" />
+      <workItem from="1684927030372" duration="3808000" />
     </task>
     <servers />
   </component>

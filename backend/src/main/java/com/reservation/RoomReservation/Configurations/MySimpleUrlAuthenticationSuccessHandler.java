@@ -1,5 +1,6 @@
 package com.reservation.RoomReservation.Configurations;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -26,15 +27,11 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
         super();
     }
 
-    // API
-
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws IOException {
         handle(request, response, authentication);
         clearAuthenticationAttributes(request);
     }
-
-    // IMPL
 
     protected void handle(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws IOException, IOException {
         final String targetUrl = determineTargetUrl(authentication);
@@ -42,6 +39,7 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
         if (response.isCommitted()) {
             return;
         }
+
 
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }

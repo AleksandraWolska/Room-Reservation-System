@@ -17,8 +17,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -28,15 +35,16 @@ public class WebSecurityConfiguration {
     private UserService userService;
 
     @Bean
+    @CrossOrigin(origins = "http://localhost:3000")
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.cors()
+        http.csrf().disable()
+            .cors()
             .and().authorizeHttpRequests()
                 .requestMatchers("/swagger-ui/**", "/v1/**", "/v2/**", "/v3/**", "/swagger/**").permitAll()
                 .requestMatchers("/reservation/users/*","/reservation/users/register", "/login", "/login/**").permitAll()
                 .anyRequest().authenticated()
             .and().oauth2Login()
-                .defaultSuccessUrl("http://localhost:3000/", true)
                 .successHandler(new AuthenticationSuccessHandler() {
                     @Override
                     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -44,11 +52,9 @@ public class WebSecurityConfiguration {
                         MyOAuth2User oauthUser = new MyOAuth2User((OAuth2User) authentication.getPrincipal());
                         userService.processOAuthPostLogin(oauthUser.getEmail());
 
-                        response.sendRedirect("http://localhost:3000/");
                     };})
             .and().formLogin()
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("http://localhost:3000/", true)
                 .successHandler(myAuthenticationSuccessHandler())
             .and().sessionManagement()
                 .enableSessionUrlRewriting(true)
@@ -63,8 +69,30 @@ public class WebSecurityConfiguration {
         return http.build();
     }
 
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("http://localhost:3000"); // or you can set "*" to allow all origins
+        config.addAllowedHeader("*"); // allows all headers
+        config.addAllowedMethod("*"); // allows all methods (GET, POST, PUT, etc.)
+
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
 
 
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://localhost:8080"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE"));
+        configuration.setAllowCredentials(true); // set Allow-Credentials to true
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
     @Bean
     public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
         return new MySimpleUrlAuthenticationSuccessHandler();

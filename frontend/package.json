@@ -62,5 +62,5 @@
     "date-fns": "^2.30.0",
     "react-datetime-picker": "^5.1.0"
   },
-  "proxy": "http://localhost:8000"
+  "proxy": "http://localhost:8080"
 }
