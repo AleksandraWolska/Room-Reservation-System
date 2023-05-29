@@ -41,33 +41,33 @@ public class WebSecurityConfiguration {
 
         http.csrf().disable()
             .cors()
-            .and().authorizeHttpRequests()
-                .requestMatchers("/swagger-ui/**", "/v1/**", "/v2/**", "/v3/**", "/swagger/**").permitAll()
-                .requestMatchers("/reservation/users/*","/reservation/users/register", "/login", "/login/**").permitAll()
-                .requestMatchers("/static/**", "js/**", "css/**").permitAll()
-                .anyRequest().authenticated()
-            .and().oauth2Login()
-                .successHandler(new AuthenticationSuccessHandler() {
-                    @Override
-                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                                        Authentication authentication) throws IOException, ServletException {
-                        MyOAuth2User oauthUser = new MyOAuth2User((OAuth2User) authentication.getPrincipal());
-                        userService.processOAuthPostLogin(oauthUser.getEmail());
-                        RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
-                        redirectStrategy.sendRedirect(request, response, "/index.html");
-
-                    };})
-            .and().formLogin()
-                .loginProcessingUrl("/login").successForwardUrl("/index.html")
-                .successHandler(myAuthenticationSuccessHandler())
-            .and().sessionManagement()
-                .enableSessionUrlRewriting(true)
-            .and().logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
+//            .and().authorizeHttpRequests()
+//                .requestMatchers("/swagger-ui/**", "/v1/**", "/v2/**", "/v3/**", "/swagger/**").permitAll()
+//                .requestMatchers("/reservation/users/*","/reservation/users/register", "/login", "/login/**").permitAll()
+//                .requestMatchers("/static/**", "js/**", "css/**").permitAll()
+//                //.anyRequest().authenticated()
+//            .and().oauth2Login()
+//                .successHandler(new AuthenticationSuccessHandler() {
+//                    @Override
+//                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+//                                                        Authentication authentication) throws IOException, ServletException {
+//                        MyOAuth2User oauthUser = new MyOAuth2User((OAuth2User) authentication.getPrincipal());
+//                        userService.processOAuthPostLogin(oauthUser.getEmail());
+//                        RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+//                        redirectStrategy.sendRedirect(request, response, "/index.html");
+//
+//                    };})
+//            .and().formLogin()
+//                .loginProcessingUrl("/login").successForwardUrl("/index.html")
+//                .successHandler(myAuthenticationSuccessHandler())
+//            .and().sessionManagement()
+//                .enableSessionUrlRewriting(true)
+//            .and().logout()
+//                .logoutUrl("/logout")
+//                .logoutSuccessUrl("/")
+//                .clearAuthentication(true)
+//                .invalidateHttpSession(true)
+//                .deleteCookies("JSESSIONID")
             .and().httpBasic();
 
         return http.build();
