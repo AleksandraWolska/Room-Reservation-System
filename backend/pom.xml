@@ -15,6 +15,9 @@
 	<description>MVC project for rooms reservations</description>
 	<properties>
 		<java.version>17</java.version>
+		<frontend-src-dir>${project.basedir}/src/main/frontend</frontend-src-dir>
+		<node.version>v18.13.0</node.version>
+		<frontend-maven-plugin.version>1.7.6</frontend-maven-plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -44,6 +47,9 @@
 			<groupId>jakarta.persistence</groupId>
 			<artifactId>jakarta.persistence-api</artifactId>
 			<version>3.1.0</version>
+		</dependency><dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -91,20 +97,6 @@
 		<directory>${project.basedir}/target</directory>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<addResources>true</addResources>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<packagingExcludes>WEB-INF/lib/*gson*.jar</packagingExcludes>
@@ -113,20 +105,22 @@
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.6</version>
+				<version>${frontend-maven-plugin.version}</version>
 				<configuration>
-					<workingDirectory>src/main/frontend</workingDirectory>
-					<installDirectory>target</installDirectory>
+					<nodeVersion>${node.version}</nodeVersion>
+					<workingDirectory>${frontend-src-dir}</workingDirectory>
+					<installDirectory>${project.build.directory}</installDirectory>
 				</configuration>
+
 				<executions>
 					<execution>
-						<id>install node and npm</id>
+						<id>install-frontend-tools</id>
 						<goals>
 							<goal>install-node-and-npm</goal>
 						</goals>
 					</execution>
 					<execution>
-						<id>npm install</id>
+						<id>npm-install</id>
 						<goals>
 							<goal>npm</goal>
 						</goals>
@@ -135,10 +129,11 @@
 						</configuration>
 					</execution>
 					<execution>
-						<id>npm run build</id>
+						<id>build-frontend</id>
 						<goals>
 							<goal>npm</goal>
 						</goals>
+						<phase>prepare-package</phase>
 						<configuration>
 							<arguments>run build</arguments>
 						</configuration>
@@ -146,23 +141,25 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.3.0</version>
 				<executions>
 					<execution>
-						<phase>generate-resources</phase>
-						<configuration>
-							<target>
-								<copy todir="${project.build.directory}/classes/static">
-									<fileset dir="${project.basedir}/src/main/frontend/build/static" />
-								</copy>
-								<copy todir="${project.build.directory}/classes/static">
-									<fileset dir="${project.basedir}/src/main/frontend/build" />
-								</copy>
-							</target>
-						</configuration>
+						<id>position-react-build</id>
 						<goals>
-							<goal>run</goal>
+							<goal>copy-resources</goal>
 						</goals>
+						<phase>prepare-package</phase>
+						<configuration>
+							<outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${frontend-src-dir}/build</directory>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

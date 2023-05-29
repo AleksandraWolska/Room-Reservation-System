@@ -11,6 +11,8 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -30,16 +32,16 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws IOException {
         handle(request, response, authentication);
-        clearAuthenticationAttributes(request);
+        //clearAuthenticationAttributes(request);
     }
 
     protected void handle(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws IOException, IOException {
         final String targetUrl = determineTargetUrl(authentication);
-
+        RequestCache requestCache = new HttpSessionRequestCache();
+        requestCache.saveRequest(request,response);
         if (response.isCommitted()) {
             return;
         }
-
 
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }

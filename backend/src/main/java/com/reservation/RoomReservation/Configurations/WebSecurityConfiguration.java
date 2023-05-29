@@ -35,7 +35,6 @@ public class WebSecurityConfiguration {
     private UserService userService;
 
     @Bean
-    @CrossOrigin(origins = "http://localhost:3000")
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf().disable()
@@ -54,7 +53,7 @@ public class WebSecurityConfiguration {
 
                     };})
             .and().formLogin()
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl("/login").successForwardUrl("http://localhost:3000")
                 .successHandler(myAuthenticationSuccessHandler())
             .and().sessionManagement()
                 .enableSessionUrlRewriting(true)

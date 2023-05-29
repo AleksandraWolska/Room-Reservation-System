@@ -7,6 +7,9 @@
     <list default="true" id="890a5610-6f13-4a6c-8f72-a7bb4a873656" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/MySimpleUrlAuthenticationSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/MySimpleUrlAuthenticationSuccessHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/WebSecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/WebSecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/ViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/ViewController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/application.properties" afterDir="false" />
     </list>
@@ -40,6 +43,7 @@
       <MavenGeneralSettings>
         <option name="mavenHome" value="Use Maven wrapper" />
         <option name="useMavenConfig" value="true" />
+        <option name="usePluginRegistry" value="true" />
       </MavenGeneralSettings>
     </option>
     <option name="importingSettings">
@@ -47,6 +51,9 @@
         <option name="workspaceImportEnabled" value="true" />
       </MavenImportingSettings>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2OqAymLGde56UxoE33l2pR0pQHx" />
   <component name="ProjectViewState">
@@ -62,7 +69,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Studia/Sem6/ZaawansowaneTechnoloieWebowe/RESTSpring/security/gs-securing-web/complete&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Studia/Sem6/ZaawansowaneTechnoloieWebowe/RoomReservation/backend/src/main/resources/templates&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -71,7 +78,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.archetype.catalogs&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
     &quot;settings.editor.splitter.proportion&quot;: &quot;0.24120083&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;a1a93693439fe755f9b4b4007d3c6d2c&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -79,9 +86,14 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Studia\Sem6\ZaawansowaneTechnoloieWebowe\RoomReservation\backend\src\main\resources\templates" />
+      <recent name="D:\Studia\Sem6\ZaawansowaneTechnoloieWebowe\RoomReservation\backend\src\main\resources\static" />
       <recent name="D:\Studia\Sem6\ZaawansowaneTechnoloieWebowe\RoomReservation\backend\src\main\java\com\reservation\RoomReservation\Authentication" />
       <recent name="D:\Studia\Sem6\ZaawansowaneTechnoloieWebowe\RoomReservation\backend\src\main\java\com\reservation\RoomReservation\Authentication\Services" />
       <recent name="D:\Studia\Sem6\ZaawansowaneTechnoloieWebowe\RoomReservation\backend\src\main\java\com\reservation\RoomReservation\Configuration" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Studia\Sem6\ZaawansowaneTechnoloieWebowe\RoomReservation\backend\src\main\resources\static" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.reservation.RoomReservation.Controllers" />
@@ -137,7 +149,9 @@
       <workItem from="1684848017073" duration="1902000" />
       <workItem from="1684855181444" duration="15266000" />
       <workItem from="1684917221542" duration="3178000" />
-      <workItem from="1684927030372" duration="5270000" />
+      <workItem from="1684927030372" duration="11069000" />
+      <workItem from="1685277085260" duration="8469000" />
+      <workItem from="1685358953234" duration="307000" />
     </task>
     <servers />
   </component>
