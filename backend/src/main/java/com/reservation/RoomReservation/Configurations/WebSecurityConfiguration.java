@@ -53,7 +53,7 @@ public class WebSecurityConfiguration {
 
                     };})
             .and().formLogin()
-                .loginProcessingUrl("/login").successForwardUrl("http://localhost:3000")
+                .loginProcessingUrl("/login").successForwardUrl("/index.html")
                 .successHandler(myAuthenticationSuccessHandler())
             .and().sessionManagement()
                 .enableSessionUrlRewriting(true)

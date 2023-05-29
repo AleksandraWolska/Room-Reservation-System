@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ViewController {
 
-    @GetMapping("")
+    @GetMapping("/index.html")
     public ModelAndView home() {
         ModelAndView mav=new ModelAndView("index");
         return mav;
