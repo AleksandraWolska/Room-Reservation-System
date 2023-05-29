@@ -42,6 +42,7 @@ public class WebSecurityConfiguration {
             .and().authorizeHttpRequests()
                 .requestMatchers("/swagger-ui/**", "/v1/**", "/v2/**", "/v3/**", "/swagger/**").permitAll()
                 .requestMatchers("/reservation/users/*","/reservation/users/register", "/login", "/login/**").permitAll()
+                .requestMatchers("/static/**", "js/**", "css/**").permitAll()
                 .anyRequest().authenticated()
             .and().oauth2Login()
                 .successHandler(new AuthenticationSuccessHandler() {

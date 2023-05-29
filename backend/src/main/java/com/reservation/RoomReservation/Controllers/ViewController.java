@@ -8,13 +8,14 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ViewController {
 
-    @GetMapping("/index.html")
-    public ModelAndView home() {
-        ModelAndView mav=new ModelAndView("index");
-        return mav;
-    }
-//    @RequestMapping("/")
-//    public String react(){
-//        return "index";
+//    @GetMapping("/index.html")
+//    public ModelAndView home() {
+//        ModelAndView mav=new ModelAndView("index");
+//        return mav;
 //    }
+
+    @RequestMapping("/index.html")
+    public String react(){
+        return "index";
+    }
 }
