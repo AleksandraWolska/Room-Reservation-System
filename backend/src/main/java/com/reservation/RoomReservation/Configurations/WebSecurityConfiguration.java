@@ -15,6 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
@@ -51,6 +53,8 @@ public class WebSecurityConfiguration {
                                                         Authentication authentication) throws IOException, ServletException {
                         MyOAuth2User oauthUser = new MyOAuth2User((OAuth2User) authentication.getPrincipal());
                         userService.processOAuthPostLogin(oauthUser.getEmail());
+                        RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+                        redirectStrategy.sendRedirect(request, response, "/index.html");
 
                     };})
             .and().formLogin()
