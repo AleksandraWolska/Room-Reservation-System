@@ -31,7 +31,7 @@ const BuildingWithRoomsListView: React.FC<BuildingListProps> = ({ buildings, onR
             onClick={() => handleClick(buildingData.building?.id)}
             sx={{
               bgcolor: (open === buildingData.building?.id) ? 'action.selected' : 'inherit',
-              my: 1, // Set vertical margin
+              my: 1,
             }}
             divider
           >
@@ -42,16 +42,15 @@ const BuildingWithRoomsListView: React.FC<BuildingListProps> = ({ buildings, onR
 
               </>
 
-            } sx={{ fontSize: "1.5em"  }} /> {/* Make building names more prominent */}
+            } sx={{ fontSize: "1.5em"  }} />
             {open === buildingData.building?.id ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={open === buildingData.building?.id} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               {buildingData.rooms?.map((room) => (
                 <ListItem key={room.id} sx={{
-                  bgcolor: (selectedRoomId === room.id) ? 'action.hover' : 'inherit', // Highlight selected room
-                  // ml: 4, // Indent the nested list
-                  // my: 0.5, // Set vertical margin for room items
+                  bgcolor: (selectedRoomId === room.id) ? 'action.hover' : 'inherit', 
+
                 }} divider>
                   <ListItemText
                     primary={
@@ -68,7 +67,6 @@ const BuildingWithRoomsListView: React.FC<BuildingListProps> = ({ buildings, onR
                     Select
                   </Button>
                 </ListItem>
-
               ))}
             </List>
           </Collapse>

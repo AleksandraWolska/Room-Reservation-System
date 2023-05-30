@@ -38,8 +38,6 @@ export const FilterComponent: React.FC<FilterComponentProps> = ({ onFormSubmit }
 
                     onFormSubmit(modifiedValues);
                 }}
-
-
             >
 
                 <Form>
@@ -79,10 +77,10 @@ export const FilterComponent: React.FC<FilterComponentProps> = ({ onFormSubmit }
                                 label="Building Name"
                             />
                         </Grid>
-         
+
 
                         <Grid item xs={12}>
-                            <Field 
+                            <Field
                                 component={Select}
                                 fullWidth
                                 id="roomType"

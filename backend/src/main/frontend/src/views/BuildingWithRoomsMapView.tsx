@@ -57,7 +57,7 @@ const BuildingWithRoomsMapView: React.FC<BuildingListProps> = ({ buildings, onRo
             <Typography variant="h4" component="h1" textAlign="center" mb={2} sx={{ mt: 2 }}>
         {selectedBuilding ? `Rooms in building: ${selectedBuilding.building?.name}` : "Choose building from the map"}
       </Typography>
-      <MapContainer center={center} zoom={9} style={{ height: "30vh", width: "95%" }} scrollWheelZoom={true}>
+      <MapContainer center={center} zoom={11} style={{ height: "30vh", width: "95%" }} scrollWheelZoom={true}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -83,9 +83,7 @@ const BuildingWithRoomsMapView: React.FC<BuildingListProps> = ({ buildings, onRo
           <List>
             {selectedBuilding.rooms?.map((room) => (
               <ListItem key={room.id} sx={{
-                bgcolor: (selectedRoomId === room.id) ? 'action.hover' : 'inherit', // Highlight selected room
-                // ml: 4, // Indent the nested list
-                // my: 0.5, // Set vertical margin for room items
+                bgcolor: (selectedRoomId === room.id) ? 'action.hover' : 'inherit',
               }} divider>
                 <ListItemText
                   primary={
