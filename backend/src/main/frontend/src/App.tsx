@@ -49,7 +49,6 @@ const [login, setLogin] = useState<any>()
 
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <div className="App">
-                <LoginForm />
                 <AppBar position="static">
                     <Toolbar>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

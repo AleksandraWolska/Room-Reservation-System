@@ -1,4 +1,5 @@
 apis/BuildingControllerApi.ts
+apis/LoginEndpointApi.ts
 apis/ReservationControllerApi.ts
 apis/RoomControllerApi.ts
 apis/UserControllerApi.ts
