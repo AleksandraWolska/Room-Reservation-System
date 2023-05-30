@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -73,8 +75,10 @@ public class ReservationController {
     public ResponseEntity<Reservation> reserve(@PathVariable Integer roomId, @PathVariable Integer userId, @RequestBody List<LocalDateTime> timeInstants){
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new NoSuchElementException("room with id: " + roomId + "does not exist"));
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NoSuchElementException("use with id: " + userId + "does not exist"));
+
+        User current = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName())
+                .orElseThrow(() -> new NoSuchElementException("Authenticated user doesnt exists?!?!?!?!"));
+
         timeInstants.sort(LocalDateTime::compareTo);
 
         LocalDateTime start = timeInstants.get(0);
@@ -90,7 +94,7 @@ public class ReservationController {
         Reservation reservation = new Reservation();
         reservation.setCreatedAt(LocalDateTime.now());
         reservation.setRoom(room);
-        reservation.setUser(user);
+        reservation.setUser(current);
         reservation.setReservedFrom(start);
         reservation.setReservedTo(end);
 

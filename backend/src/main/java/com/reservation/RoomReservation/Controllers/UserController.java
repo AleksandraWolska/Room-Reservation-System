@@ -5,13 +5,16 @@ import com.reservation.RoomReservation.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequiredArgsConstructor
@@ -46,5 +49,20 @@ public class UserController {
     @GetMapping("/")
     public ResponseEntity<String> success(){
         return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @GetMapping("/current")
+    public ResponseEntity<User> current(){
+
+        User result = new User();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(auth.getName()).orElseThrow(() -> new NoSuchElementException("Authenticated user doesnt exists?!?!?!?!"));
+
+        result.setId(user.getId());
+        result.setEmail(user.getEmail());
+        result.setFirstname(user.getFirstname());
+        result.setLastname(user.getLastname());
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
