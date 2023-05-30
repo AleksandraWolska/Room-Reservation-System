@@ -15,15 +15,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void processOAuthPostLogin(String username) {
+    public void processOAuthPostLogin(String username, String nick) {
         Optional<User> existUser = userRepository.findByEmail(username);
 
         if (existUser.isEmpty()) {
             User newUser = new User();
             newUser.setEmail(username);
             newUser.setRole("USER");
-            newUser.setLastname("GOOGLE");
-            newUser.setFirstname("GOOGLE");
+            newUser.setLastname("Google user");
+            newUser.setFirstname(nick);
 
             userRepository.save(newUser);
         }

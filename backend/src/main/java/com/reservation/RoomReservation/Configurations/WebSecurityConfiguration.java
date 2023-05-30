@@ -52,7 +52,7 @@ public class WebSecurityConfiguration {
                     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                                         Authentication authentication) throws IOException, ServletException {
                         MyOAuth2User oauthUser = new MyOAuth2User((OAuth2User) authentication.getPrincipal());
-                        userService.processOAuthPostLogin(oauthUser.getEmail());
+                        userService.processOAuthPostLogin(oauthUser.getEmail(), oauthUser.getName());
                         RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
                         redirectStrategy.sendRedirect(request, response, "/index.html");
 
