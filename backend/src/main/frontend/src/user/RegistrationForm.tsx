@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Typography } from '@mui/material';
-import { User, UserControllerApi } from '../services/openapi'; // Import User and UserControllerApi
+import { User, UserControllerApi } from '../services/openapi'; 
 
 interface UserRegister {
   firstname?: string;
@@ -11,7 +11,7 @@ interface UserRegister {
 
 export const RegistrationForm: React.FC = () => {
   const [formData, setFormData] = useState<UserRegister>({});
-  const api = new UserControllerApi(); // Instantiate the UserControllerApi
+  const api = new UserControllerApi();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -23,7 +23,6 @@ export const RegistrationForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Create a user object
     const user: User = {
       firstname: formData.firstname,
       lastname: formData.lastname,
@@ -31,18 +30,19 @@ export const RegistrationForm: React.FC = () => {
       password: formData.password,
     };
 
-    // Call the register method with the user object
+ 
     try {
       const response = await api.register({ user });
       console.log(response);
     } catch (error) {
       console.error(error);
+      
     }
   };
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center', width: '100%', maxWidth: 400, m: 'auto' }}>
-      <Typography variant="h4" sx={{ mb: 2 }}>Register</Typography>
+      <Typography variant="h4" sx={{ mb: 2 }}>TO BE IMPLEMENTED. CONTACT YOUR ORGANIZATION TO REGISTER</Typography>
       <TextField
         name="firstname"
         label="First Name"

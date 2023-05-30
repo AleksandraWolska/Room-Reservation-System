@@ -1,48 +1,63 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Home from './home/Home';
-
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
-// date-fns
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { UserReservations } from './user/UserReservations';
-import { User } from './services/openapi';
-import { RegistrationForm } from './user/RegistrationForm'; // Make sure to import the RegistrationForm
+import { User, UserControllerApi } from './services/openapi';
+import { RegistrationForm } from './user/RegistrationForm';
 import axios from 'axios';
-import LoginForm from './user/LoginForm';
+
 
 enum View {
     Home,
     Reservations,
-    Registration // Added new view for Registration
+    Registration
 }
 
 function App() {
 
-    const templateUser: User = {
-        id: 1,
-        firstname: "John",
-        lastname: "Doe",
-        email: "johndoe@example.com",
-    };
+    // const templateUser: User = {
+    //     id: 1,
+    //     firstname: "John",
+    //     lastname: "Doe",
+    //     email: "johndoe@example.com",
+    // };
 
-    const [userId, setUserId] = useState(null)
-    const [userData, setUserData] = useState<User|undefined>(undefined)
+
+
+    const [userData, setUserData] = useState<User | undefined>(undefined)
     const [currentView, setCurrentView] = useState<View>(View.Home)
-const [login, setLogin] = useState<any>()
+    const [login, setLogin] = useState<any>()
 
+    const api = new UserControllerApi();
 
-    const handleLogin= async (event: any) => {
+    const handleLogin = async (event: any) => {
         event.preventDefault();
-        
+
         const response = await axios.get('http://localhost:8080/login')
 
         setLogin(response.data)
         console.log(response.data);
     };
 
+    const handleLogout = async (event: any) => {
+        event.preventDefault();
+
+        const response = await axios.get('http://localhost:8080/logout')
+
+        setUserData(undefined)
+    };
+
+
+    useEffect(() => {
+        api.current().then(user => {
+            setUserData(user);
+        }).catch(error => {
+            console.error('Failed to fetch current user', error);
+        });
+    }, []);
 
 
     return (
@@ -51,14 +66,14 @@ const [login, setLogin] = useState<any>()
             <div className="App">
                 <AppBar position="static">
                     <Toolbar>
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} onClick={() => window.location.reload()}>
                             BOOKING SYSTEM
                         </Typography>
                         {userData !== undefined ?
                             <>
                                 <Button color="inherit" variant={currentView === View.Home ? "outlined" : "text"} onClick={() => setCurrentView(View.Home)}>Explore</Button>
                                 <Button color="inherit" variant={currentView === View.Reservations ? "outlined" : "text"} onClick={() => setCurrentView(View.Reservations)}>My Reservations</Button>
-                                <Button color="inherit">Log Out</Button>
+                                <Button color="inherit" onClick={handleLogout}>Log Out</Button>
                             </>
                             :
                             <>
@@ -68,9 +83,9 @@ const [login, setLogin] = useState<any>()
                         }
                     </Toolbar>
                 </AppBar>
-                {currentView === View.Home && <Home userId={userData?.id!}/>}
-                {currentView === View.Reservations && <UserReservations userID={userData?.id!}/>}
-                {currentView === View.Registration && <RegistrationForm />} {/* Render RegistrationForm if currentView is Registration */}
+                {currentView === View.Home && <Home userId={userData?.id!} />}
+                {currentView === View.Reservations && <UserReservations user={userData} />}
+                {currentView === View.Registration && <RegistrationForm />}
             </div>
         </LocalizationProvider>
     );
