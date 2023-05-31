@@ -80,7 +80,7 @@ export const UserReservations: React.FC<UserReservationsProps> = ({ user }) => {
       alignItems: 'center',
       margin: '0 auto'
     }}>
-      <Typography variant="h4" sx={{ textAlign: 'center', mb: 2 }}>{`${user?.firstname} ${user?.lastname}'s Reservations`}</Typography>
+      <Typography variant="h4" sx={{ textAlign: 'center', mb: 2 }}>{`${user?.firstname || "User"}'s Reservations`}</Typography>
 
       <Select value={sortType} onChange={handleSortChange} sx={{ alignSelf: 'center', width: '30%' }}>
         <MenuItem value="0" disabled>Select sort type</MenuItem>

@@ -48,6 +48,7 @@ function App() {
         const response = await axios.get('http://localhost:8080/logout')
 
         setUserData(undefined)
+        window.location.reload()
     };
 
 
