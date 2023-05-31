@@ -27,3 +27,8 @@ node_modules
 
 
 #BACKEND GITIGNORE FILES
+
+
+
+/backend/src/main/resources/application.properties
+/backend/target/classes/application.properties
