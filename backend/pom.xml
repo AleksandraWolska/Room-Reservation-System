@@ -107,6 +107,18 @@
 		<directory>${project.basedir}/target</directory>
 		<plugins>
 			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>8.5.13</version>
+				<configuration>
+					<user>root</user>
+					<password>P@ssw0rd</password>
+					<schemas>
+						<schema>room_reservation</schema>
+					</schemas>
+				</configuration>
+			</plugin>
+			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<packagingExcludes>WEB-INF/lib/*gson*.jar</packagingExcludes>
