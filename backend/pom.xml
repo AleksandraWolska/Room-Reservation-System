@@ -109,8 +109,9 @@
 			<plugin>
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
-				<version>8.5.13</version>
+				<version>8.2.0</version>
 				<configuration>
+					<url>jdbc:mysql://127.0.0.1:3306/room_reservation</url>
 					<user>root</user>
 					<password>P@ssw0rd</password>
 					<schemas>

@@ -1,0 +1,1 @@
+ALTER TABLE building DROP COLUMN color;

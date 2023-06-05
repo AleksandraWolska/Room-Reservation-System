@@ -20,5 +20,6 @@ public class Building {
     private String name;
     private Double latitude;
     private Double longitude;
+    private String color;
 
 }
