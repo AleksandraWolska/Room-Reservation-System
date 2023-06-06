@@ -1,2 +1,2 @@
 ALTER TABLE building
-    ADD color VARCHAR(255) NULL;
+    ADD color VARCHAR(255) NULL

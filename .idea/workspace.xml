@@ -5,16 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="890a5610-6f13-4a6c-8f72-a7bb4a873656" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/flyway.conf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/src/main/resources/db/migration/V1_1_0__my_first_migration.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/db/migration/V1_1_0__my_first_migration.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Building.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Building.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/db/migration/V1_1_1__building_color.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/db/migration/V1_1_1__building_color.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Models/Building.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Models/Building.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +19,8 @@
       <list>
         <option value="Interface" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="com.haulmont.jpb.FlywayMigrationScript" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -169,7 +162,9 @@
       <workItem from="1685812799090" duration="705000" />
       <workItem from="1685892044310" duration="125000" />
       <workItem from="1685964179799" duration="6608000" />
-      <workItem from="1685984555275" duration="4671000" />
+      <workItem from="1685984555275" duration="4947000" />
+      <workItem from="1686030478421" duration="29000" />
+      <workItem from="1686046371490" duration="2246000" />
     </task>
     <servers />
   </component>
