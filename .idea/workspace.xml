@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="890a5610-6f13-4a6c-8f72-a7bb4a873656" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/db/migration/V1_1_1__building_color.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/db/migration/V1_1_1__building_color.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Models/Building.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Models/Building.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +162,9 @@
       <workItem from="1685964179799" duration="6608000" />
       <workItem from="1685984555275" duration="4947000" />
       <workItem from="1686030478421" duration="29000" />
-      <workItem from="1686046371490" duration="2246000" />
+      <workItem from="1686046371490" duration="3706000" />
+      <workItem from="1686143695364" duration="1416000" />
+      <workItem from="1686748585320" duration="28000" />
     </task>
     <servers />
   </component>
