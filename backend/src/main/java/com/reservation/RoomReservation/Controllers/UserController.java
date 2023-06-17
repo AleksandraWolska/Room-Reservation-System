@@ -1,6 +1,5 @@
 package com.reservation.RoomReservation.Controllers;
 
-import com.reservation.RoomReservation.Models.Room;
 import com.reservation.RoomReservation.Models.User;
 import com.reservation.RoomReservation.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,9 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -76,5 +73,10 @@ public class UserController {
         userRepository.save(updated);
 
         return new ResponseEntity<>(updated, HttpStatus.OK);
+    }
+
+    @GetMapping("/info/")
+    public String authors(){
+        return "Aleksandra Wolska \nSzymon Łopuszyński 260454";
     }
 }
