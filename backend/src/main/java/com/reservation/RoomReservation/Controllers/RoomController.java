@@ -136,9 +136,48 @@ public class RoomController {
         Room room = roomRepository
                 .findByNumberInBuilding(number, name)
                 .orElseThrow(() -> new NoSuchElementException("building " + name + "does not exist, or room " + number + " does not exist"));
+
         roomRepository.delete(room);
         return new ResponseEntity<>(room, HttpStatus.OK);
     }
 
+//    @PostMapping("/to/{id}")
+//    public ResponseEntity<Room> updateTo(@PathVariable Integer id, @RequestBody RoomTO roomTO){
+//        Room room = roomRepository
+//                .findById(id)
+//                .orElseThrow(() -> new NoSuchElementException("room with id " + roomTO.getBuildingId() + " does not exist"));
+//
+//
+//        Building building = buildingRepository.findById(roomTO.getBuildingId())
+//                .orElseThrow(() -> new NoSuchElementException("building with id " + roomTO.getBuildingId() + " does not exist"));
+//
+//        room.setId(id);
+//        room.setPlaces(roomTO.getPlaces());
+//        room.setRoomType(roomTO.getRoomType());
+//        room.setBuilding(building);
+//        room.setNumber(roomTO.getNumber());
+//        room.setFloor(roomTO.getFloor());
+//        room.setProjector(roomTO.isProjector());
+//
+//        roomRepository.save(room);
+//
+//        return new ResponseEntity<>(room, HttpStatus.OK);
+//    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Room> update(@PathVariable Integer id, @RequestBody Room updated){
+        Building building = buildingRepository.findById(updated.getBuilding().getId())
+                .orElseThrow(() -> new NoSuchElementException("building with id " + updated.getBuilding().getId() + " does not exist"));
+
+        Room room = roomRepository
+                .findById(id)
+                .orElseThrow(() -> new NoSuchElementException("room with id " + id + " does not exist"));
+
+        updated.setId(id);
+
+        roomRepository.save(updated);
+
+        return new ResponseEntity<>(room, HttpStatus.OK);
+    }
 
 }

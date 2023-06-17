@@ -6,6 +6,25 @@
   <component name="ChangeListManager">
     <list default="true" id="890a5610-6f13-4a6c-8f72-a7bb4a873656" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/MySimpleUrlAuthenticationSuccessHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/MyUserDetails.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/WebConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Configurations/WebSecurityConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/ReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/ReservationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/RoomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/RoomController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/ViewController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Reservation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Models/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/RoomReservationApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/RoomReservationApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Services/MyUserDetailsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/MyOAuth2User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Utils/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Controllers/ReservationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/Controllers/ReservationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/RoomReservationApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/com/reservation/RoomReservation/RoomReservationApplication.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +36,6 @@
       <list>
         <option value="Interface" />
         <option value="Enum" />
-        <option value="com.haulmont.jpb.FlywayMigrationScript" />
         <option value="Class" />
       </list>
     </option>
@@ -41,7 +59,6 @@
       <MavenGeneralSettings>
         <option name="mavenHome" value="Use Maven wrapper" />
         <option name="useMavenConfig" value="true" />
-        <option name="usePluginRegistry" value="true" />
       </MavenGeneralSettings>
     </option>
     <option name="importingSettings">
@@ -50,49 +67,39 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
   <component name="ProjectId" id="2OqAymLGde56UxoE33l2pR0pQHx" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Studia/Sem6/ZaawansowaneTechnoloieWebowe/RoomReservation/backend/src/main/resources/templates&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;settings.editor.splitter.proportion&quot;: &quot;0.24120083&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;a1a93693439fe755f9b4b4007d3c6d2c&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
+    "last_opened_file_path": "D:/Studia/Sem6/ZaawansowaneTechnoloieWebowe/Lab4/books",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "spring.configuration.checksum": "a1a93693439fe755f9b4b4007d3c6d2c",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Studia\Sem6\ZaawansowaneTechnoloieWebowe\RoomReservation\backend\src\main\resources\templates" />
-      <recent name="D:\Studia\Sem6\ZaawansowaneTechnoloieWebowe\RoomReservation\backend\src\main\resources\static" />
       <recent name="D:\Studia\Sem6\ZaawansowaneTechnoloieWebowe\RoomReservation\backend\src\main\java\com\reservation\RoomReservation\Authentication" />
       <recent name="D:\Studia\Sem6\ZaawansowaneTechnoloieWebowe\RoomReservation\backend\src\main\java\com\reservation\RoomReservation\Authentication\Services" />
       <recent name="D:\Studia\Sem6\ZaawansowaneTechnoloieWebowe\RoomReservation\backend\src\main\java\com\reservation\RoomReservation\Configuration" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Studia\Sem6\ZaawansowaneTechnoloieWebowe\RoomReservation\backend\src\main\resources" />
-      <recent name="D:\Studia\Sem6\ZaawansowaneTechnoloieWebowe\RoomReservation\backend\src\main\resources\static" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.reservation.RoomReservation.Controllers" />
@@ -141,30 +148,9 @@
       <workItem from="1684316833627" duration="6051000" />
       <workItem from="1684503880488" duration="848000" />
       <workItem from="1684505982416" duration="785000" />
-      <workItem from="1684522462214" duration="3758000" />
-      <workItem from="1684682527322" duration="1085000" />
-      <workItem from="1684683713000" duration="21799000" />
-      <workItem from="1684776467177" duration="2104000" />
-      <workItem from="1684848017073" duration="1902000" />
-      <workItem from="1684855181444" duration="15266000" />
-      <workItem from="1684917221542" duration="3178000" />
-      <workItem from="1684927030372" duration="11069000" />
-      <workItem from="1685277085260" duration="8469000" />
-      <workItem from="1685358953234" duration="8418000" />
-      <workItem from="1685381715800" duration="768000" />
-      <workItem from="1685458070023" duration="5608000" />
-      <workItem from="1685472873276" duration="2891000" />
-      <workItem from="1685538857219" duration="952000" />
-      <workItem from="1685785743340" duration="2541000" />
-      <workItem from="1685789897534" duration="1860000" />
-      <workItem from="1685812799090" duration="705000" />
-      <workItem from="1685892044310" duration="125000" />
-      <workItem from="1685964179799" duration="6608000" />
-      <workItem from="1685984555275" duration="4947000" />
-      <workItem from="1686030478421" duration="29000" />
-      <workItem from="1686046371490" duration="3706000" />
-      <workItem from="1686143695364" duration="1416000" />
-      <workItem from="1686748585320" duration="28000" />
+      <workItem from="1684522462214" duration="2164000" />
+      <workItem from="1686930631517" duration="1355000" />
+      <workItem from="1686995783247" duration="18756000" />
     </task>
     <servers />
   </component>
@@ -193,17 +179,10 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="thymleaf" />
+                        <option value="master" />
                       </list>
                     </value>
                   </entry>
-                </map>
-              </option>
-              <option name="COLUMN_ID_WIDTH">
-                <map>
-                  <entry key="Table.Default.Author.ColumnIdWidth" value="57" />
-                  <entry key="Table.Default.Date.ColumnIdWidth" value="58" />
-                  <entry key="Table.Space.CommitStatus.ColumnIdWidth" value="56" />
                 </map>
               </option>
             </State>
@@ -211,21 +190,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/UserController.java</url>
-          <line>59</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/backend/src/main/java/com/reservation/RoomReservation/Controllers/UserController.java</url>
-          <line>60</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

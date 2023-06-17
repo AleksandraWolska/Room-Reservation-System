@@ -10,11 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.AuthenticatedPrincipal;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -79,15 +74,7 @@ public class ReservationController {
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new NoSuchElementException("room with id: " + roomId + "does not exist"));
 
-        User user = new User();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.getPrincipal() instanceof UserDetails) {
-            user = userRepository.findByEmail(auth.getName()).orElseThrow(() -> new NoSuchElementException("Authenticated user doesnt exists?!?!?!?!"));
-        } else if (auth.getPrincipal() instanceof AuthenticatedPrincipal) {
-
-            user = userRepository.findByEmail((String)((DefaultOAuth2User)auth.getPrincipal()).getAttributes().get("email"))
-                    .orElseThrow(() -> new NoSuchElementException("Authenticated user doesnt exists?!?!?!?!"));
-        }
+        User user = userRepository.findById(userId).orElseThrow(() -> new NoSuchElementException("Authenticated user doesnt exists?!?!?!?!"));
 
         timeInstants.sort(LocalDateTime::compareTo);
 

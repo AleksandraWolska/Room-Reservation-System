@@ -16,7 +16,7 @@ public class Room {
     private Integer id;
     private  Integer number;
     private Integer floor;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "building_id",nullable = false)
     private  Building building;
     private Integer places;

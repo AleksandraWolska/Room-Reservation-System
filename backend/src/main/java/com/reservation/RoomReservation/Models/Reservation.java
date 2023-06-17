@@ -2,6 +2,8 @@ package com.reservation.RoomReservation.Models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.time.LocalDateTime;
 
@@ -18,9 +20,9 @@ public class Reservation {
     private LocalDateTime createdAt;
     private LocalDateTime reservedFrom;
     private LocalDateTime reservedTo;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private User user;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Room room;
 
 }

@@ -1,21 +1,15 @@
 package com.reservation.RoomReservation.Controllers;
 
+import com.reservation.RoomReservation.Models.Room;
 import com.reservation.RoomReservation.Models.User;
 import com.reservation.RoomReservation.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.AuthenticatedPrincipal;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -26,7 +20,22 @@ import java.util.NoSuchElementException;
 public class UserController {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+
+    @GetMapping("/")
+    public ResponseEntity<List<User>> all(){
+        List<User> users = userRepository.findAll();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> one(@PathVariable Integer id){
+
+        User user = userRepository
+                .findById(id)
+                .orElseThrow(() -> new NoSuchElementException("user with id: "+id+"does not exist!"));
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user){
@@ -35,8 +44,7 @@ public class UserController {
             new ResponseEntity<>(new Object(), HttpStatus.CONFLICT);
         }
 
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
+        user.setPassword(user.getPassword());
         user.setRole("USER");
 
         userRepository.save(user);
@@ -44,36 +52,29 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/user")
-    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
-        return Collections.singletonMap("name", principal.getAttribute("name"));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<User> delete(@PathVariable Integer id){
+
+        User user = userRepository
+                .findById(id)
+                .orElseThrow(() -> new NoSuchElementException("user with id: "+id+"does not exist!"));
+
+        userRepository.delete(user);
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/")
-    public ResponseEntity<String> success(){
-        return new ResponseEntity<>("success", HttpStatus.OK);
-    }
+    @PostMapping("/{id}")
+    public ResponseEntity<User> update(@PathVariable Integer id, @RequestBody User updated){
 
-    @GetMapping("/current")
-    public ResponseEntity<User> current(){
+        User user = userRepository
+                .findById(id)
+                .orElseThrow(() -> new NoSuchElementException("user with id: "+id+"does not exist!"));
 
-        User result = new User();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = new User();
+        updated.setId(id);
 
-        if (auth.getPrincipal() instanceof UserDetails) {
-            user = userRepository.findByEmail(auth.getName()).orElseThrow(() -> new NoSuchElementException("Authenticated user doesnt exists?!?!?!?!"));
-        } else if (auth.getPrincipal() instanceof AuthenticatedPrincipal) {
+        userRepository.save(updated);
 
-            user = userRepository.findByEmail((String)((DefaultOAuth2User)auth.getPrincipal()).getAttributes().get("email"))
-                    .orElseThrow(() -> new NoSuchElementException("Authenticated user doesnt exists?!?!?!?!"));
-        }
-
-        result.setId(user.getId());
-        result.setEmail(user.getEmail());
-        result.setFirstname(user.getFirstname());
-        result.setLastname(user.getLastname());
-
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 }
