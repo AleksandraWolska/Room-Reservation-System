@@ -75,8 +75,5 @@ public class UserController {
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 
-    @GetMapping("/info/")
-    public String authors(){
-        return "Aleksandra Wolska \nSzymon Łopuszyński 260454";
-    }
+
 }
